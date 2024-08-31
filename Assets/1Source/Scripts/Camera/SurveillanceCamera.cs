@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace Scripts.CameraSystem
 {
-    public class SurveillanceCamera : MonoBehaviour, IBeginDragHandler, IDragHandler
+    public class SurveillanceCamera : MonoBehaviour, IDragHandler
     {
         [SerializeField] private Camera _camera;
         [SerializeField] private Transform _focusPoint;
@@ -14,50 +14,37 @@ namespace Scripts.CameraSystem
         [SerializeField] private AnimationCurve _animationCurve;
 
         private Quaternion _targetRotation;
+        private Quaternion _currentRotation;
         private Vector3 _currentEulerAngles;
-        private bool _isDragging;
 
         private void Start()
         {
             _currentEulerAngles = _camera.transform.rotation.eulerAngles;
-            _targetRotation = _camera.transform.rotation;
-            RotateCamera();
+            _currentRotation = _camera.transform.rotation;
+            _targetRotation = _currentRotation;
         }
 
         private void Update()
         {
-            if (_isDragging)
-            {
-                float lerpFactor = _animationCurve.Evaluate(_smoothTime * Time.deltaTime);
-                _camera.transform.rotation = Quaternion.Slerp(_camera.transform.rotation, _targetRotation, lerpFactor);
-            }
-        }
+            float lerpFactor = _animationCurve.Evaluate(_smoothTime * Time.deltaTime);
+            _currentRotation = Quaternion.Slerp(_currentRotation, _targetRotation, lerpFactor);
+            float distance = Vector3.Distance(_camera.transform.position, _focusPoint.position);
+            Vector3 newPosition = _focusPoint.position - (_currentRotation * Vector3.forward * distance);
 
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            _isDragging = true;
+            _camera.transform.position = newPosition;
+            _camera.transform.rotation = _currentRotation;
+            _camera.transform.LookAt(_focusPoint);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
             _currentEulerAngles.y += eventData.delta.x * _speed;
             _currentEulerAngles.x -= eventData.delta.y * _speed;
-            RotateCamera();
-        }
 
-        private void RotateCamera()
-        {
             _currentEulerAngles.y = Mathf.Clamp(_currentEulerAngles.y, _horizontalRestriction.x, _horizontalRestriction.y);
             _currentEulerAngles.x = Mathf.Clamp(_currentEulerAngles.x, _verticalRestriction.x, _verticalRestriction.y);
 
-            Quaternion newRotation = Quaternion.Euler(_currentEulerAngles);
-            float distance = Vector3.Distance(_camera.transform.position, _focusPoint.position);
-            Vector3 newPosition = _focusPoint.position - (newRotation * Vector3.forward * distance);
-
-            _camera.transform.position = newPosition;
-            _camera.transform.LookAt(_focusPoint);
-
-            _targetRotation = _camera.transform.rotation;
+            _targetRotation = Quaternion.Euler(_currentEulerAngles);
         }
     }
 }
