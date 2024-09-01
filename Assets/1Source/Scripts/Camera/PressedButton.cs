@@ -23,6 +23,16 @@ namespace Scripts.CameraSystem
             _button.onClick.RemoveListener(OnClick);
         }
 
+        public void Lock()
+        {
+            _button.enabled = false;
+        }
+
+        public void Unlock()
+        {
+            _button.enabled = true;
+        }
+
         public void OnPointerDown(PointerEventData eventData)
         {
             Down.Invoke();

@@ -18,7 +18,11 @@ namespace Scripts.CameraSystem
         private Vector3 _startPozition;
         private bool _isAimingWork;
 
-        public event Action Aimed;
+        public event Action AimingInitiated;
+
+        public event Action AimingCompleted;
+
+        public event Action CameraReturned;
 
         private void Start()
         {
@@ -31,7 +35,7 @@ namespace Scripts.CameraSystem
                 return;
 
             _isAimingWork = true;
-            Aimed?.Invoke();
+            AimingInitiated?.Invoke();
             StartCoroutine(Aim(_defaultFieldOfView, _targetFieldOfView));
             StartCoroutine(MoveForward());
         }
@@ -75,6 +79,7 @@ namespace Scripts.CameraSystem
             }
 
             _camera.transform.position = target;
+            AimingCompleted?.Invoke();
         }
 
         private IEnumerator MoveBackward()
@@ -95,6 +100,7 @@ namespace Scripts.CameraSystem
 
             _camera.transform.position = target;
             _isAimingWork = false;
+            CameraReturned?.Invoke();
         }
     }
 }

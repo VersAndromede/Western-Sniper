@@ -2,21 +2,24 @@
 
 namespace Scripts.CameraSystem
 {
+    [RequireComponent (typeof(AnimatedUI))]
     public class AnimatedButton : PressedButton
     {
-        private const string HideTrigger = "Hide";
-        private const string ShowTrigger = "Show";
+        private AnimatedUI _animator;
 
-        [SerializeField] private Animator _animator; 
+        private void Start()
+        {
+            _animator = GetComponent<AnimatedUI>();  
+        }
 
         public void Hide()
         {
-            _animator.SetTrigger(HideTrigger);
+            _animator.Hide();
         }
 
         public void Show()
         {
-            _animator.SetTrigger(ShowTrigger);
+            _animator.Show();
         }
     }
 }
