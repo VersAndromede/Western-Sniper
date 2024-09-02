@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Scripts.UI;
+using UnityEngine;
 
 namespace Scripts.CameraSystem
 {
