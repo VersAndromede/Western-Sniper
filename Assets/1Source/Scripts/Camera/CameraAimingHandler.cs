@@ -51,13 +51,13 @@ namespace Scripts.CameraSystem
 
         private void OnAimButtonDown()
         {
-            _cameraAiming.StartAim();
+            StartCoroutine(_cameraAiming.StartAim());
         }
 
         private void OnExitAimingButtonDown()
         {
             _crosshairs.SetActive(true);
-            _cameraAiming.EndAim();
+            StartCoroutine(_cameraAiming.EndAim());
             _aimButton.Show();
             _aimPanel.Hide();
             _exitAimingButton.Hide();

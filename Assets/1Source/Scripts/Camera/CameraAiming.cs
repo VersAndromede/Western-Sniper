@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Scripts.CameraSystem
 {
@@ -15,13 +14,10 @@ namespace Scripts.CameraSystem
         [SerializeField] private AnimationCurve _animationCurve;
 
         private float _defaultFieldOfView;
-        private Vector3 _startPozition;
         private bool _isAimingWork;
 
         public event Action AimingInitiated;
-
         public event Action AimingCompleted;
-
         public event Action CameraReturned;
 
         private void Start()
@@ -29,21 +25,24 @@ namespace Scripts.CameraSystem
             _defaultFieldOfView = _camera.fieldOfView;
         }
 
-        public void StartAim()
+        public IEnumerator StartAim()
         {
             if (_isAimingWork)
-                return;
+                yield break;
 
             _isAimingWork = true;
             AimingInitiated?.Invoke();
             StartCoroutine(Aim(_defaultFieldOfView, _targetFieldOfView));
-            StartCoroutine(MoveForward());
+            yield return StartCoroutine(Move(_camera.transform.forward));
+            AimingCompleted?.Invoke();
         }
 
-        public void EndAim()
+        public IEnumerator EndAim()
         {
             StartCoroutine(Aim(_targetFieldOfView, _defaultFieldOfView));
-            StartCoroutine(MoveBackward());
+            yield return StartCoroutine(Move(-_camera.transform.forward));
+            _isAimingWork = false;
+            CameraReturned?.Invoke();
         }
 
         private IEnumerator Aim(float start, float end)
@@ -62,45 +61,19 @@ namespace Scripts.CameraSystem
             _camera.fieldOfView = end;
         }
 
-        private IEnumerator MoveForward()
+        private IEnumerator Move(Vector3 direction)
         {
-            _startPozition = _camera.transform.position;
-            Vector3 direction = (_focusPoint.position - _camera.transform.position).normalized;
-            Vector3 target = _startPozition + direction * _targetMovingForward;
             float elapsedTime = 0;
 
             while (elapsedTime < _travelTime)
             {
+                Vector3 newPosition = _camera.transform.position + direction * (_targetMovingForward * Time.deltaTime);
                 float lerpFactor = _animationCurve.Evaluate(elapsedTime / _travelTime);
-                Vector3 newPozition = Vector3.Lerp(_startPozition, target, lerpFactor);
-                _camera.transform.position = newPozition;
+                _camera.transform.position = Vector3.Lerp(_camera.transform.position, newPosition, lerpFactor);
+
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
-
-            _camera.transform.position = target;
-            AimingCompleted?.Invoke();
-        }
-
-        private IEnumerator MoveBackward()
-        {
-            Vector3 currentPozition = _camera.transform.position;
-            Vector3 direction = (_camera.transform.position - _focusPoint.position).normalized;
-            Vector3 target = currentPozition + direction * _targetMovingForward;
-            float elapsedTime = 0;
-
-            while (elapsedTime < _travelTime)
-            {
-                float lerpFactor = _animationCurve.Evaluate(elapsedTime / _travelTime);
-                Vector3 newPozition = Vector3.Lerp(currentPozition, target, lerpFactor);
-                _camera.transform.position = newPozition;
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-
-            _camera.transform.position = target;
-            _isAimingWork = false;
-            CameraReturned?.Invoke();
         }
     }
 }
