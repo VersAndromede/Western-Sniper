@@ -6,27 +6,27 @@ namespace Scripts.CameraSystem
     public class PointerObserverHandler : MonoBehaviour
     {
         [SerializeField] private PointerObserver _screenObserver;
-        [SerializeField] private PointerObserver _aimButton;
+        [SerializeField] private PressedButton _aimButton;
         [SerializeField] private PressedButton _exitAimingButton;
 
         private void Start()
         {
-            _aimButton.DragStarted += OnDragStarted;
-            _exitAimingButton.Down += OnDown;
+            _aimButton.Down += OnAimButtonDown;
+            _exitAimingButton.Down += OnExitButtonDown;
         }
 
         private void OnDestroy()
         {
-            _aimButton.DragStarted -= OnDragStarted;
-            _exitAimingButton.Down -= OnDown;
+            _aimButton.Down -= OnAimButtonDown;
+            _exitAimingButton.Down -= OnExitButtonDown;
         }
 
-        private void OnDragStarted()
+        private void OnAimButtonDown()
         {
             _screenObserver.ChangeType(PointerObserverType.AimButton);
         }
 
-        private void OnDown()
+        private void OnExitButtonDown()
         {
             _screenObserver.ChangeType(PointerObserverType.ObserverScreen);
         }

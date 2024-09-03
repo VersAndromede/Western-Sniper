@@ -10,7 +10,6 @@ namespace Scripts.Root
     {
         [SerializeField] private GameConfig _gameConfig;
         [SerializeField] private PointerObserver _screenObserver;
-        [SerializeField] private PointerObserver _aimButton;
 
         protected override void OnDestroy()
         {
@@ -30,7 +29,6 @@ namespace Scripts.Root
             builder.RegisterBuildCallback(container =>
             {
                 container.Inject(_screenObserver);
-                container.Inject(_aimButton);
                 container.Resolve<PlayerWeaponPresenter>();
             });
         }

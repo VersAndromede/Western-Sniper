@@ -9,14 +9,13 @@ namespace Scripts.ShootingSystem
     {
         private readonly HitChecker _hitChecker = new HitChecker();
 
-        [SerializeField] private PointerObserver[] _pointerObservers;
+        [SerializeField] private PointerObserver _pointerObserver;
         
         private PlayerWeapon _weapon;
 
         private void OnDestroy()
         {
-            foreach (PointerObserver pointerObserver in _pointerObservers)
-                    pointerObserver.DragEnded -= OnDragEnded;
+            _pointerObserver.DragEnded -= OnDragEnded;
         }
 
         [Inject]
@@ -24,8 +23,7 @@ namespace Scripts.ShootingSystem
         {
             _weapon = weapon;
 
-            foreach (PointerObserver pointerObserver in _pointerObservers)
-                    pointerObserver.DragEnded += OnDragEnded;
+            _pointerObserver.DragEnded += OnDragEnded;
         }
 
         private void OnDragEnded(PointerObserverType pointerObserverType)
@@ -33,8 +31,8 @@ namespace Scripts.ShootingSystem
             if (pointerObserverType != PointerObserverType.AimButton)
                 return;
 
-            if (_hitChecker.Check(out Enemy enemy))
-                _weapon.Shoot(enemy);
+            if (_hitChecker.Check(out Enemy enemy, out Vector3 hitPoint))
+                _weapon.Shoot(enemy, hitPoint);
         }
     }
 }

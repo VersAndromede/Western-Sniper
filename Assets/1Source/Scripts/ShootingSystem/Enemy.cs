@@ -6,9 +6,9 @@ namespace Scripts.EnemySystem.Body
     {
         [SerializeField] private EnemyEffector _effector;
 
-        public void Die()
+        public void Die(Vector3 hitPoint)
         {
-            _effector.PlayDeth();
+            _effector.PlayDeth(hitPoint);
         }
     }
 }

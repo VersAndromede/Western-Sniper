@@ -13,12 +13,12 @@ namespace Scripts.UI
 
         public void Lock()
         {
-            _button.interactable = false;
+            _button.image.raycastTarget = false;
         }
 
         public void Unlock()
         {
-            _button.interactable = true;
+            _button.image.raycastTarget = true;
         }
 
         public void OnPointerDown(PointerEventData eventData)

@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class HitChecker
 {
-    public bool Check(out Enemy enemy)
+    public bool Check(out Enemy enemy, out Vector3 hitPoint)
     {
         enemy = null;
+        hitPoint = default;
 
         float screenCenterX = Screen.width / 2f;
         float screenCenterY = Screen.height / 2f;
@@ -21,6 +22,7 @@ public class HitChecker
                     return false;
 
                 enemy = enemyPart.GetComponentInParent<Enemy>();
+                hitPoint = hit.point;
                 return true;
             }
         }

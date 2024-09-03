@@ -1,5 +1,6 @@
 ﻿using Scripts.EnemySystem.Body;
 using System;
+using UnityEngine;
 
 namespace Scripts.ShootingSystem
 {
@@ -7,10 +8,10 @@ namespace Scripts.ShootingSystem
     {
         public event Action ShotFired;
 
-        public void Shoot(Enemy enemy)
+        public void Shoot(Enemy enemy, Vector3 hitPoint)
         {
             ShotFired?.Invoke();
-            enemy.Die();
+            enemy.Die(hitPoint);
         }
     }
 }
