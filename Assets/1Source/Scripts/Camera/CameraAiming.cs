@@ -17,7 +17,9 @@ namespace Scripts.CameraSystem
         private bool _isAimingWork;
 
         public event Action AimingInitiated;
+
         public event Action AimingCompleted;
+
         public event Action CameraReturned;
 
         private void Start()
@@ -63,17 +65,20 @@ namespace Scripts.CameraSystem
 
         private IEnumerator Move(Vector3 direction)
         {
+            Vector3 currentPozition = _camera.transform.position;
+            Vector3 target = currentPozition + direction.normalized * _targetMovingForward;
             float elapsedTime = 0;
 
             while (elapsedTime < _travelTime)
             {
-                Vector3 newPosition = _camera.transform.position + direction * (_targetMovingForward * Time.deltaTime);
                 float lerpFactor = _animationCurve.Evaluate(elapsedTime / _travelTime);
-                _camera.transform.position = Vector3.Lerp(_camera.transform.position, newPosition, lerpFactor);
-
+                Vector3 newPozition = Vector3.LerpUnclamped(currentPozition, target, lerpFactor);
+                _camera.transform.position = newPozition;
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
+
+            _camera.transform.position = target;
         }
     }
 }

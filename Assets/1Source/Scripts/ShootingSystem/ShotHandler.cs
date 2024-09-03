@@ -1,5 +1,5 @@
 using Scripts.CameraSystem;
-using Scripts.EnemySystem.Body;
+using Scripts.EnemySystem;
 using UnityEngine;
 using VContainer;
 

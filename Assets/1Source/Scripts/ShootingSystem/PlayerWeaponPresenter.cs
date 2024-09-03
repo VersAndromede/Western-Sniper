@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using VContainer;
 
 namespace Scripts.ShootingSystem
@@ -22,9 +23,9 @@ namespace Scripts.ShootingSystem
             _weapon.ShotFired -= OnShotFired;
         }
 
-        private void OnShotFired()
+        private void OnShotFired(Vector3 hitPoint)
         {
-            _weaponView.Play();
+            _weaponView.Play(hitPoint);
         }
     }
 }

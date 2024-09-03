@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Scripts.EnemySystem.Body
+namespace Scripts.EnemySystem
 {
     public class EnemyPart : MonoBehaviour
     {

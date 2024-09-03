@@ -1,4 +1,4 @@
-﻿using Scripts.EnemySystem.Body;
+﻿using Scripts.EnemySystem;
 using UnityEngine;
 
 public class HitChecker

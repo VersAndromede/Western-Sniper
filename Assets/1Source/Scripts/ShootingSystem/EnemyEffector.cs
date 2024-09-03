@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 
-namespace Scripts.EnemySystem.Body
+namespace Scripts.EnemySystem
 {
     public class EnemyEffector : MonoBehaviour
     {
         [SerializeField] private Animator _animator;
-        [SerializeField] private ParticleSystem _particleSystemPrefab;
         [SerializeField] private Vector2 _randomXForce;
         [SerializeField] private Vector2 _randomYForce;
         [SerializeField] private Vector2 _randomZForce;
@@ -27,13 +26,9 @@ namespace Scripts.EnemySystem.Body
             }
         }
 
-        public void PlayDeth(Vector3 hitPoint)
+        public void PlayDeth()
         {
             _animator.enabled = false;
-
-            ParticleSystem particleSystem = Instantiate(_particleSystemPrefab);
-            particleSystem.transform.position = hitPoint;
-            particleSystem.Play();
 
             foreach (Rigidbody rigidbody in _rigidbodies)
                 rigidbody.isKinematic = false;

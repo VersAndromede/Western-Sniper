@@ -1,14 +1,34 @@
-﻿using UnityEngine;
+﻿using Scripts.HealthSystem;
+using UnityEngine;
 
-namespace Scripts.EnemySystem.Body
+namespace Scripts.EnemySystem
 {
     public class Enemy : MonoBehaviour
     {
         [SerializeField] private EnemyEffector _effector;
 
-        public void Die(Vector3 hitPoint)
+        private Health _health;
+
+        private void OnDestroy()
         {
-            _effector.PlayDeth(hitPoint);
+            _health.Over -= OnOver;
+        }
+
+        public void Init(Health health)
+        {
+            _health = health;
+
+            _health.Over += OnOver;
+        }
+
+        public void TakeDamage()
+        {
+            _health.TakeDamage(35);
+        }
+
+        private void OnOver()
+        {
+            _effector.PlayDeth();
         }
     }
 }

@@ -1219,10 +1219,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 6762585533151937322}
-  _particleSystemPrefab: {fileID: 5613044189875866724, guid: fed5c981535b4614f8b0bc18e26c451a, type: 3}
-  _randomXForce: {x: -75, y: 75}
-  _randomYForce: {x: 100, y: 125}
-  _randomZForce: {x: 150, y: 150}
+  _randomXForce: {x: -112.5, y: 112.5}
+  _randomYForce: {x: 150, y: 187.5}
+  _randomZForce: {x: 225, y: 225}
   _multiplierForForceToHat: 0.02
 --- !u!1 &4453689801259492677
 GameObject:
