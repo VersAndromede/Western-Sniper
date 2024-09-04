@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scripts.GameConfigSystem;
+using System;
 using UnityEngine;
 using VContainer;
 
@@ -10,10 +11,11 @@ namespace Scripts.ShootingSystem
         private readonly PlayerWeaponView  _weaponView;
 
         [Inject]
-        public PlayerWeaponPresenter(PlayerWeapon weapon, PlayerWeaponView weaponView)
+        public PlayerWeaponPresenter(PlayerWeapon weapon, PlayerWeaponView weaponView, Ammunition ammunition, GameConfig gameConfig)
         {
             _weapon = weapon;
             _weaponView = weaponView;
+            _weapon.Init(ammunition, gameConfig);
 
             _weapon.ShotFired += OnShotFired;
         }
@@ -25,7 +27,7 @@ namespace Scripts.ShootingSystem
 
         private void OnShotFired(Vector3 hitPoint)
         {
-            _weaponView.Play(hitPoint);
+            _weaponView.Play(hitPoint, _weapon.IsEmpty);
         }
     }
 }

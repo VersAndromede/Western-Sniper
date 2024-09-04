@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scripts.GameConfigSystem;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;

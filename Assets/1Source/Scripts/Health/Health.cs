@@ -19,12 +19,12 @@ namespace Scripts.HealthSystem
 
         public event Action Over;
 
-        public void TakeDamage(int count)
+        public void TakeDamage(uint count)
         {
             if (Count == 0)
                 return;
 
-            Count -= count;
+            Count -= (int)count;
             Count = Mathf.Clamp(Count, 0, MaxCount);
             Changed?.Invoke();
 

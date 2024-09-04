@@ -33,7 +33,6 @@ namespace Scripts.CameraSystem
             _camera.LookAt(_focusPoint);
         }
 
-
         public void LookAtPointer(PointerEventData eventData, float speed)
         {
             _currentEulerAngles.y += eventData.delta.x * speed;

@@ -31,8 +31,10 @@ namespace Scripts.ShootingSystem
             if (pointerObserverType != PointerObserverType.AimButton)
                 return;
 
-            if (_hitChecker.Check(out Enemy enemy, out Vector3 hitPoint))
-                _weapon.Shoot(enemy, hitPoint);
+            if (_hitChecker.IsHitOnEnemy(out WeaponShotPoint shotPoint))
+                _weapon.ShootEnemy(shotPoint);
+            else
+                _weapon.Shoot(shotPoint.Position);
         }
     }
 }

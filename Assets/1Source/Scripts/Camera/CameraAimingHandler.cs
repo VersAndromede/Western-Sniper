@@ -1,8 +1,20 @@
-﻿using Scripts.UI;
+﻿using Scripts.GameConfigSystem;
+using Scripts.ShootingSystem;
+using Scripts.UI;
 using UnityEngine;
 
 namespace Scripts.CameraSystem
 {
+    public class CameraExitAimingHandler : MonoBehaviour
+    {
+        [SerializeField] private CameraAiming _cameraAiming;
+
+        private void Construct(PlayerWeapon playerWepon, GameConfig gameConfig)
+        {
+            
+        }
+    }
+
     public class CameraAimingHandler : MonoBehaviour
     {
         [SerializeField] private CameraAiming _cameraAiming;

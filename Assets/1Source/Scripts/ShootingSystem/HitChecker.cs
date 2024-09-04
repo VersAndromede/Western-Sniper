@@ -1,13 +1,31 @@
 ﻿using Scripts.EnemySystem;
 using UnityEngine;
 
+public struct WeaponShotPoint
+{
+    public Vector3 Position;
+
+    public Enemy Enemy { get; private set; }
+
+    public EnemyPartType EnemyPartType { get; private set; }
+
+    public bool IsHeadshot { get; private set; }
+
+    public void SetEnemy(Enemy enemy, EnemyPartType enemyPartType)
+    {
+        Enemy = enemy;
+        EnemyPartType = enemyPartType;
+
+        if (enemyPartType == EnemyPartType.Head)
+            IsHeadshot = true;
+    }
+}
+
 public class HitChecker
 {
-    public bool Check(out Enemy enemy, out Vector3 hitPoint)
+    public bool IsHitOnEnemy(out WeaponShotPoint weaponShotPoint)
     {
-        enemy = null;
-        hitPoint = default;
-
+        weaponShotPoint = default;
         float screenCenterX = Screen.width / 2f;
         float screenCenterY = Screen.height / 2f;
 
@@ -16,13 +34,14 @@ public class HitChecker
 
         if (Physics.Raycast(ray, out RaycastHit hit, 1000))
         {
-            if (hit.collider.TryGetComponent(out EnemyPart enemyPart))
+            weaponShotPoint.Position = hit.point;
+
+            if (hit.collider.TryGetComponent(out EnemyPart findedPart))
             {
-                if (enemyPart.Type == EnemyPartType.Hat)
+                if (findedPart.Type == EnemyPartType.Hat)
                     return false;
 
-                enemy = enemyPart.GetComponentInParent<Enemy>();
-                hitPoint = hit.point;
+                weaponShotPoint.SetEnemy(findedPart.GetComponentInParent<Enemy>(), findedPart.Type);
                 return true;
             }
         }

@@ -1,4 +1,5 @@
 using Scripts.CameraSystem;
+using Scripts.GameConfigSystem;
 using Scripts.ShootingSystem;
 using UnityEngine;
 using VContainer;
@@ -18,6 +19,11 @@ namespace Scripts.Root
 
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.Register<Ammunition>(Lifetime.Singleton);
+            builder.RegisterComponentInHierarchy<AmmunitionView>();
+            builder.RegisterComponentInHierarchy<ReloadWeaponView>();
+            builder.Register<ReloadWeaponPresenter>(Lifetime.Singleton);
+            builder.Register<AmmunitionPresenter>(Lifetime.Singleton);
             builder.Register<PlayerWeapon>(Lifetime.Singleton);
             builder.RegisterComponentInHierarchy<PlayerWeaponView>();
             builder.Register<PlayerWeaponPresenter>(Lifetime.Singleton);
@@ -30,6 +36,8 @@ namespace Scripts.Root
             {
                 container.Inject(_screenObserver);
                 container.Resolve<PlayerWeaponPresenter>();
+                container.Resolve<AmmunitionPresenter>();
+                container.Resolve<ReloadWeaponPresenter>();
             });
         }
     }
