@@ -1,6 +1,11 @@
-using Scripts.CameraSystem;
+using Scripts.CameraSystem.CameraAimingSystem;
+using Scripts.CameraSystem.PointerObserverSystem;
 using Scripts.GameConfigSystem;
 using Scripts.ShootingSystem;
+using Scripts.ShootingSystem.AmmunitionSystem;
+using Scripts.ShootingSystem.PlayerWeaponSystem;
+using Scripts.ShootingSystem.ReloadWeaponSystem;
+using Scripts.ShootingSystem.ShotHandlerSystem;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -29,7 +34,7 @@ namespace Scripts.Root
             builder.Register<PlayerWeaponPresenter>(Lifetime.Singleton);
 
             builder.RegisterInstance(_gameConfig);
-            builder.RegisterComponentInHierarchy<CameraObserver>();
+            builder.RegisterComponentInHierarchy<CameraLookingAtPoint>();
             builder.RegisterComponentInHierarchy<ShotHandler>();
 
             builder.RegisterBuildCallback(container =>

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Sctripts.Audio
+namespace Scripts.Audio
 {
     public class MusicStarter : MonoBehaviour
     {

@@ -15,7 +15,6 @@ namespace Scripts.Root
             yield return YandexGamesSdk.Initialize();
             YandexGamesSdk.GameReady();
 #endif
-
             _levelEntryPoint.Build();
             yield return null;
         }

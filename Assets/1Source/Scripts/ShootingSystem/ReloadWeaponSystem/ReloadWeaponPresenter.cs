@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Scripts.ShootingSystem.AmmunitionSystem;
+using System;
 using VContainer;
 
-namespace Scripts.ShootingSystem
+namespace Scripts.ShootingSystem.ReloadWeaponSystem
 {
     public class ReloadWeaponPresenter : IDisposable
     {

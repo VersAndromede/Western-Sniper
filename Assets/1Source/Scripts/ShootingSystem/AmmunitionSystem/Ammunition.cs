@@ -2,7 +2,7 @@
 using System;
 using VContainer;
 
-namespace Scripts.ShootingSystem
+namespace Scripts.ShootingSystem.AmmunitionSystem
 {
     public class Ammunition
     {

@@ -4,14 +4,14 @@ using System;
 using System.Threading;
 using UnityEngine;
 
-namespace Scripts.CameraSystem
+namespace Scripts.CameraSystem.CameraAimingSystem
 {
     public class CameraAiming : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
         [SerializeField] private float _targetFieldOfView;
         [SerializeField] private float _targetMovingForward;
-        [SerializeField] private float _travelTime;
+        [SerializeField] private float _duration;
         [SerializeField] private AnimationCurve _animationCurve;
 
         private float _defaultFieldOfView;
@@ -54,7 +54,7 @@ namespace Scripts.CameraSystem
         private async UniTask SetFieldOfView(float startFieldOfView, float endFieldOfView, CancellationToken cancellationToken)
         {
             await ValueEffectorUtility.Animate(
-                _travelTime,
+                _duration,
                 _animationCurve,
                 cancellationToken,
                 lerpFactor => Mathf.LerpUnclamped(startFieldOfView, endFieldOfView, lerpFactor),
@@ -68,7 +68,7 @@ namespace Scripts.CameraSystem
             Vector3 target = currentPosition + direction.normalized * _targetMovingForward;
 
             await ValueEffectorUtility.Animate(
-                _travelTime,
+                _duration,
                 _animationCurve,
                 cancellationToken,
                 lerpFactor => Vector3.LerpUnclamped(currentPosition, target, lerpFactor),

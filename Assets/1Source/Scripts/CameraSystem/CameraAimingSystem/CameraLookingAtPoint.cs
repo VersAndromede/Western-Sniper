@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Scripts.CameraSystem
+namespace Scripts.CameraSystem.CameraAimingSystem
 {
-    public class CameraObserver : MonoBehaviour
+    public class CameraLookingAtPoint : MonoBehaviour
     {
         [SerializeField] private Transform _camera;
         [SerializeField] private Transform _focusPoint;
@@ -12,8 +12,8 @@ namespace Scripts.CameraSystem
         [SerializeField] private Vector2 _verticalRestriction;
         [SerializeField] private AnimationCurve _animationCurve;
 
-        private Quaternion _targetRotation;
         private Quaternion _currentRotation;
+        private Quaternion _targetRotation;
         private Vector3 _currentEulerAngles;
 
         private void Start()
@@ -30,7 +30,6 @@ namespace Scripts.CameraSystem
             float distance = Vector3.Distance(_camera.position, _focusPoint.position);
             Vector3 newPosition = _focusPoint.position - (_currentRotation * Vector3.forward * distance);
             _camera.SetPositionAndRotation(newPosition, _currentRotation);
-            _camera.LookAt(_focusPoint);
         }
 
         public void LookAtPointer(PointerEventData eventData, float speed)

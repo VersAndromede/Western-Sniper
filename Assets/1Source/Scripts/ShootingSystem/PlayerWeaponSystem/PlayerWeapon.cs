@@ -1,9 +1,11 @@
 ﻿using Cysharp.Threading.Tasks;
 using Scripts.GameConfigSystem;
+using Scripts.ShootingSystem.AmmunitionSystem;
+using Scripts.ShootingSystem.ShotHandlerSystem;
 using System;
 using UnityEngine;
 
-namespace Scripts.ShootingSystem
+namespace Scripts.ShootingSystem.PlayerWeaponSystem
 {
     public class PlayerWeapon
     {

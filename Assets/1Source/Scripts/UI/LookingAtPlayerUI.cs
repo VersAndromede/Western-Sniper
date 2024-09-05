@@ -1,18 +1,21 @@
 using UnityEngine;
 
-public class LookingAtPlayerUI : MonoBehaviour
+namespace Scripts.UI
 {
-    [SerializeField] private Camera _camera;
-    [SerializeField] private Vector3 _rotateOffset = new Vector3(0, 180, 0);
-
-    private void OnValidate()
+    public class LookingAtPlayerUI : MonoBehaviour
     {
-        _camera = Camera.main;
-    }
+        [SerializeField] private Camera _camera;
+        [SerializeField] private Vector3 _rotateOffset = new Vector3(0, 180, 0);
 
-    private void Update()
-    {
-        transform.LookAt(_camera.transform);
-        transform.Rotate(_rotateOffset);
+        private void OnValidate()
+        {
+            _camera = Camera.main;
+        }
+
+        private void Update()
+        {
+            transform.LookAt(_camera.transform);
+            transform.Rotate(_rotateOffset);
+        }
     }
 }

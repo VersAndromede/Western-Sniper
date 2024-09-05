@@ -1,7 +1,7 @@
 ﻿using Scripts.UI;
 using UnityEngine;
 
-namespace Scripts.CameraSystem
+namespace Scripts.CameraSystem.PointerObserverSystem
 {
     public class PointerObserverHandler : MonoBehaviour
     {

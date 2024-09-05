@@ -1,9 +1,10 @@
 ﻿using Scripts.GameConfigSystem;
+using Scripts.ShootingSystem.AmmunitionSystem;
 using System;
 using UnityEngine;
 using VContainer;
 
-namespace Scripts.ShootingSystem
+namespace Scripts.ShootingSystem.PlayerWeaponSystem
 {
     public class PlayerWeaponPresenter : IDisposable
     {

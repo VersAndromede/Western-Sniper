@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 99551624}
   - component: {fileID: 99551623}
   - component: {fileID: 99551622}
+  - component: {fileID: 99551629}
   - component: {fileID: 99551626}
   - component: {fileID: 99551628}
   - component: {fileID: 99551627}
@@ -207,19 +208,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 99551623}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 99551627}
-        m_TargetAssemblyTypeName: Scripts.CameraSystem.PressedButton, Assembly-CSharp
-        m_MethodName: Lock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &99551623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,6 +294,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 99551626}
+--- !u!114 &99551629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 99551620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 99551627}
+          m_TargetAssemblyTypeName: Scripts.UI.PressedButton, Assembly-CSharp
+          m_MethodName: Lock
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &141655160
 GameObject:
   m_ObjectHideFlags: 0
@@ -2221,8 +2239,6 @@ GameObject:
   - component: {fileID: 867791959}
   - component: {fileID: 867791960}
   - component: {fileID: 867791962}
-  - component: {fileID: 867791963}
-  - component: {fileID: 867791961}
   m_Layer: 5
   m_Name: Aim Button
   m_TagString: Untagged
@@ -2273,47 +2289,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &867791961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867791958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97174a3db9c87324ea9a2fab08445f12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _camera: {fileID: 963194227}
-  _focusPoint: {fileID: 569540624}
-  _targetFieldOfView: 25
-  _targetMovingForward: 4
-  _travelTime: 0.25
-  _animationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!225 &867791962
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2326,23 +2301,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &867791963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867791958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00e6170f230c28e42b8ed8d4584a91b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cameraAiming: {fileID: 867791961}
-  _aimButton: {fileID: 2126147946}
-  _exitAimingButton: {fileID: 99551627}
-  _aimPanel: {fileID: 1503709501}
-  _crosshairs: {fileID: 824301579}
 --- !u!1001 &901490541
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2535,6 +2493,8 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
+  - component: {fileID: 963194231}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2657,6 +2617,63 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97174a3db9c87324ea9a2fab08445f12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 963194227}
+  _targetFieldOfView: 25
+  _targetMovingForward: 4
+  _duration: 0.25
+  _animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &963194231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00e6170f230c28e42b8ed8d4584a91b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameraAiming: {fileID: 963194230}
+  _aimButton: {fileID: 2126147946}
+  _exitAimingButton: {fileID: 99551627}
+  _aimPanel: {fileID: 1503709501}
+  _crosshairs: {fileID: 824301579}
 --- !u!1 &1020797486
 GameObject:
   m_ObjectHideFlags: 0
@@ -3048,7 +3065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b3adcbc4a51b6489f350faface633b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetFrameRate: 90
+  _targetFrameRate: -1
   _targetTimeScale: 1
 --- !u!1 &1225482060
 GameObject:
@@ -6800,11 +6817,12 @@ SceneRoots:
   - {fileID: 569540624}
   - {fileID: 705507995}
   - {fileID: 1413147033}
-  - {fileID: 1787669737}
   - {fileID: 958461684}
   - {fileID: 1173765230}
   - {fileID: 3468250898807208996}
   - {fileID: 744019455}
+  - {fileID: 696562518}
+  - {fileID: 1787669737}
   - {fileID: 1402364150}
   - {fileID: 1913412416}
   - {fileID: 1821279066}
@@ -6818,4 +6836,3 @@ SceneRoots:
   - {fileID: 519876973}
   - {fileID: 169020486}
   - {fileID: 524891443}
-  - {fileID: 696562518}

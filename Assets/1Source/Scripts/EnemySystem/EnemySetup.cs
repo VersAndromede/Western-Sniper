@@ -1,7 +1,7 @@
-﻿using Scripts.EnemySystem;
+﻿using Scripts.HealthSystem;
 using UnityEngine;
 
-namespace Scripts.HealthSystem
+namespace Scripts.EnemySystem
 {
     public class EnemySetup : MonoBehaviour
     {

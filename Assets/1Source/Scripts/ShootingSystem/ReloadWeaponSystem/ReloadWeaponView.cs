@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace Scripts.ShootingSystem
+namespace Scripts.ShootingSystem.ReloadWeaponSystem
 {
     public class ReloadWeaponView : MonoBehaviour
     {

@@ -1,7 +1,6 @@
-﻿using DG.Tweening;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Scripts.ShootingSystem
+namespace Scripts.ShootingSystem.PlayerWeaponSystem
 {
     public class PlayerWeaponView : MonoBehaviour
     {

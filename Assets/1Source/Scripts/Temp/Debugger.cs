@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Sctripts.Temp
+namespace Scripts.Temp
 {
     public class Debugger : MonoBehaviour
     {

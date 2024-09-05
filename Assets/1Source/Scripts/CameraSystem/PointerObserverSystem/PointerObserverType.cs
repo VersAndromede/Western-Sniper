@@ -1,4 +1,4 @@
-﻿namespace Scripts.CameraSystem
+﻿namespace Scripts.CameraSystem.PointerObserverSystem
 {
     public enum PointerObserverType
     {

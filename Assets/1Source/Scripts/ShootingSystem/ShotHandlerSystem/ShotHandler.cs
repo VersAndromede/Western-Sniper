@@ -1,9 +1,9 @@
-using Scripts.CameraSystem;
-using Scripts.EnemySystem;
+using Scripts.CameraSystem.PointerObserverSystem;
+using Scripts.ShootingSystem.PlayerWeaponSystem;
 using UnityEngine;
 using VContainer;
 
-namespace Scripts.ShootingSystem
+namespace Scripts.ShootingSystem.ShotHandlerSystem
 {
     public class ShotHandler : MonoBehaviour
     {

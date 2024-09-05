@@ -1,9 +1,8 @@
 ﻿using System;
 using VContainer;
 
-namespace Scripts.ShootingSystem
+namespace Scripts.ShootingSystem.AmmunitionSystem
 {
-
     public class AmmunitionPresenter : IDisposable
     {
         private readonly Ammunition _ammunition;

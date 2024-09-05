@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Scripts.ShootingSystem
+namespace Scripts.ShootingSystem.AmmunitionSystem
 {
     public class AmmunitionImage : MonoBehaviour
     {

@@ -1,15 +1,16 @@
-﻿using Scripts.GameConfigSystem;
+﻿using Scripts.CameraSystem.CameraAimingSystem;
+using Scripts.GameConfigSystem;
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;
 
-namespace Scripts.CameraSystem
+namespace Scripts.CameraSystem.PointerObserverSystem
 {
     public class PointerObserver : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler
     {
         private GameConfig _gameConfig;
-        private CameraObserver _cameraObserver;
+        private CameraLookingAtPoint _cameraLookingAtHandler;
         private float _speed;
         private int _activePointerId = -1;
 
@@ -37,7 +38,7 @@ namespace Scripts.CameraSystem
             if (eventData.pointerId != _activePointerId)
                 return;
 
-            _cameraObserver.LookAtPointer(eventData, _speed);
+            _cameraLookingAtHandler.LookAtPointer(eventData, _speed);
         }
 
         public void OnEndDrag(PointerEventData eventData)
@@ -50,10 +51,10 @@ namespace Scripts.CameraSystem
         }
 
         [Inject]
-        private void Construct(GameConfig gameConfig, CameraObserver cameraObserver)
+        private void Construct(GameConfig gameConfig, CameraLookingAtPoint cameraLookingAtPoint)
         {
             _gameConfig = gameConfig;
-            _cameraObserver = cameraObserver;
+            _cameraLookingAtHandler = cameraLookingAtPoint;
         }
 
         private void UpdateSpeed()

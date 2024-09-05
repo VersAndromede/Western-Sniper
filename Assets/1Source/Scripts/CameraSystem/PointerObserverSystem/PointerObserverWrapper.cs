@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Scripts.CameraSystem
+namespace Scripts.CameraSystem.PointerObserverSystem
 {
-    public class AimButton : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler
+    public class PointerObserverWrapper : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler
     {
         [SerializeField] private PointerObserver _pointerObserver;
 
