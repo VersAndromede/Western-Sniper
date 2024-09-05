@@ -1,5 +1,7 @@
+using Cysharp.Threading.Tasks;
+using Scripts.Utilities;
 using System;
-using System.Collections;
+using System.Threading;
 using UnityEngine;
 
 namespace Scripts.CameraSystem
@@ -7,14 +9,13 @@ namespace Scripts.CameraSystem
     public class CameraAiming : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
-        [SerializeField] private Transform _focusPoint;
         [SerializeField] private float _targetFieldOfView;
         [SerializeField] private float _targetMovingForward;
         [SerializeField] private float _travelTime;
         [SerializeField] private AnimationCurve _animationCurve;
 
         private float _defaultFieldOfView;
-        private bool _isAimingWork;
+        private bool _isAimingInProgress;
 
         public event Action AimingInitiated;
 
@@ -27,58 +28,52 @@ namespace Scripts.CameraSystem
             _defaultFieldOfView = _camera.fieldOfView;
         }
 
-        public IEnumerator StartAim()
+        public async UniTask StartAim(CancellationToken cancellationToken)
         {
-            if (_isAimingWork)
-                yield break;
+            if (_isAimingInProgress)
+                return;
 
-            _isAimingWork = true;
+            _isAimingInProgress = true;
             AimingInitiated?.Invoke();
-            StartCoroutine(Aim(_defaultFieldOfView, _targetFieldOfView));
-            yield return StartCoroutine(Move(_camera.transform.forward));
+
+            SetFieldOfView(_defaultFieldOfView, _targetFieldOfView, cancellationToken);
+            await Move(_camera.transform.forward, cancellationToken);
+
             AimingCompleted?.Invoke();
         }
 
-        public IEnumerator EndAim()
+        public async UniTask EndAim(CancellationToken cancellationToken)
         {
-            StartCoroutine(Aim(_targetFieldOfView, _defaultFieldOfView));
-            yield return StartCoroutine(Move(-_camera.transform.forward));
-            _isAimingWork = false;
+            SetFieldOfView(_targetFieldOfView, _defaultFieldOfView, cancellationToken);
+            await Move(-_camera.transform.forward, cancellationToken);
+
+            _isAimingInProgress = false;
             CameraReturned?.Invoke();
         }
 
-        private IEnumerator Aim(float start, float end)
+        private async UniTask SetFieldOfView(float startFieldOfView, float endFieldOfView, CancellationToken cancellationToken)
         {
-            float elapsedTime = 0;
-
-            while (elapsedTime < _travelTime)
-            {
-                float lerpFactor = _animationCurve.Evaluate(elapsedTime / _travelTime);
-                float newFieldOfView = Mathf.Lerp(start, end, lerpFactor);
-                _camera.fieldOfView = newFieldOfView;
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-
-            _camera.fieldOfView = end;
+            await ValueEffectorUtility.Animate(
+                _travelTime,
+                _animationCurve,
+                cancellationToken,
+                lerpFactor => Mathf.LerpUnclamped(startFieldOfView, endFieldOfView, lerpFactor),
+                newFieldOfView => _camera.fieldOfView = newFieldOfView,
+                () => _camera.fieldOfView = endFieldOfView);
         }
 
-        private IEnumerator Move(Vector3 direction)
+        private async UniTask Move(Vector3 direction, CancellationToken cancellationToken)
         {
-            Vector3 currentPozition = _camera.transform.position;
-            Vector3 target = currentPozition + direction.normalized * _targetMovingForward;
-            float elapsedTime = 0;
+            Vector3 currentPosition = _camera.transform.position;
+            Vector3 target = currentPosition + direction.normalized * _targetMovingForward;
 
-            while (elapsedTime < _travelTime)
-            {
-                float lerpFactor = _animationCurve.Evaluate(elapsedTime / _travelTime);
-                Vector3 newPozition = Vector3.LerpUnclamped(currentPozition, target, lerpFactor);
-                _camera.transform.position = newPozition;
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-
-            _camera.transform.position = target;
+            await ValueEffectorUtility.Animate(
+                _travelTime,
+                _animationCurve,
+                cancellationToken,
+                lerpFactor => Vector3.LerpUnclamped(currentPosition, target, lerpFactor),
+                newPosition => _camera.transform.position = newPosition,
+                () => _camera.transform.position = target);
         }
     }
 }

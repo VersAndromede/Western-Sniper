@@ -19,6 +19,6 @@ MonoBehaviour:
     <Damage>k__BackingField: 35
     <HeadshotMultiplier>k__BackingField: 3
     <AmmunitionCount>k__BackingField: 4
-    <BulletInsertionTime>k__BackingField: 0.35
+    <BulletInsertionTime>k__BackingField: 0.5
     <PreReloadTime>k__BackingField: 3
     <ReloadTime>k__BackingField: 0.5

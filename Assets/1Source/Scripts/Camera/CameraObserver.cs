@@ -23,7 +23,7 @@ namespace Scripts.CameraSystem
             _targetRotation = _currentRotation;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             float lerpFactor = _animationCurve.Evaluate(_smoothTime * Time.deltaTime);
             _currentRotation = Quaternion.Slerp(_currentRotation, _targetRotation, lerpFactor);

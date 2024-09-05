@@ -63,13 +63,13 @@ namespace Scripts.CameraSystem
 
         private void OnAimButtonDown()
         {
-            StartCoroutine(_cameraAiming.StartAim());
+            _cameraAiming.StartAim(destroyCancellationToken);
         }
 
         private void OnExitAimingButtonDown()
         {
             _crosshairs.SetActive(true);
-            StartCoroutine(_cameraAiming.EndAim());
+            _cameraAiming.EndAim(destroyCancellationToken);
             _aimButton.Show();
             _aimPanel.Hide();
             _exitAimingButton.Hide();
