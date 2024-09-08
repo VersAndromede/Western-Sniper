@@ -1,5 +1,7 @@
-﻿using Scripts.UI;
+﻿using Scripts.ShootingSystem.PlayerWeaponSystem;
+using Scripts.UI;
 using UnityEngine;
+using VContainer;
 
 namespace Scripts.CameraSystem.CameraAimingSystem
 {
@@ -11,15 +13,7 @@ namespace Scripts.CameraSystem.CameraAimingSystem
         [SerializeField] private AnimatedUI _aimPanel;
         [SerializeField] private GameObject _crosshairs;
 
-        private void Start()
-        {
-            _cameraAiming.AimingInitiated += OnAimingInitiated;
-            _cameraAiming.AimingCompleted += OnAimingCompleted;
-            _cameraAiming.CameraReturned += OnCameraReturned;
-
-            _aimButton.Down += OnAimButtonDown;
-            _exitAimingButton.Down += OnExitAimingButtonDown;
-        }
+        private PlayerWeapon _playerWeapon;
 
         private void OnDestroy()
         {
@@ -29,6 +23,19 @@ namespace Scripts.CameraSystem.CameraAimingSystem
 
             _aimButton.Down -= OnAimButtonDown;
             _exitAimingButton.Down -= OnExitAimingButtonDown;
+        }
+
+        [Inject]
+        private void Construct(PlayerWeapon playerWeapon)
+        {
+            _playerWeapon = playerWeapon;
+
+            _cameraAiming.AimingInitiated += OnAimingInitiated;
+            _cameraAiming.AimingCompleted += OnAimingCompleted;
+            _cameraAiming.CameraReturned += OnCameraReturned;
+
+            _aimButton.Down += OnAimButtonDown;
+            _exitAimingButton.Down += OnExitAimingButtonDown;
         }
 
         private void OnAimingInitiated()
@@ -46,19 +53,22 @@ namespace Scripts.CameraSystem.CameraAimingSystem
 
         private void OnCameraReturned()
         {
-            _aimButton.Unlock();
+            if (_playerWeapon.IsEmpty == false)
+            {
+                _aimButton.Unlock();
+                _aimButton.Show();
+            }
         }
 
         private void OnAimButtonDown()
         {
-            _cameraAiming.StartAim(destroyCancellationToken);
+            _cameraAiming.StartAim();
         }
 
         private void OnExitAimingButtonDown()
         {
             _crosshairs.SetActive(true);
-            _cameraAiming.EndAim(destroyCancellationToken);
-            _aimButton.Show();
+            _cameraAiming.EndAim();
             _aimPanel.Hide();
             _exitAimingButton.Hide();
         }

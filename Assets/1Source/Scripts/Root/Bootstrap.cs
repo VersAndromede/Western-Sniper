@@ -1,7 +1,8 @@
-﻿using Agava.YandexGames;
+﻿#if UNITY_EDITOR == false && UNITY_ANDROID == false
+using Agava.YandexGames;
+#endif
 using System.Collections;
 using UnityEngine;
-using VContainer.Unity;
 
 namespace Scripts.Root
 {

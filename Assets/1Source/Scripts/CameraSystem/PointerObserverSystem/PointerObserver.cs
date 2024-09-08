@@ -7,7 +7,7 @@ using VContainer;
 
 namespace Scripts.CameraSystem.PointerObserverSystem
 {
-    public class PointerObserver : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler
+    public class PointerObserver : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
         private GameConfig _gameConfig;
         private CameraLookingAtPoint _cameraLookingAtHandler;
@@ -15,6 +15,8 @@ namespace Scripts.CameraSystem.PointerObserverSystem
         private int _activePointerId = -1;
 
         public PointerObserverType Type { get; private set; } = PointerObserverType.ObserverScreen;
+
+        public event Action Down;
 
         public event Action<PointerObserverType> DragEnded;
 
@@ -31,6 +33,7 @@ namespace Scripts.CameraSystem.PointerObserverSystem
 
             _activePointerId = eventData.pointerId;
             UpdateSpeed();
+            Down?.Invoke();
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -41,7 +44,7 @@ namespace Scripts.CameraSystem.PointerObserverSystem
             _cameraLookingAtHandler.LookAtPointer(eventData, _speed);
         }
 
-        public void OnEndDrag(PointerEventData eventData)
+        public void OnPointerUp(PointerEventData eventData)
         {
             if (eventData.pointerId != _activePointerId)
                 return;

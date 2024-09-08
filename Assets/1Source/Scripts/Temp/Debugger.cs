@@ -6,11 +6,14 @@ namespace Scripts.Temp
     {
         [SerializeField] private int _targetFrameRate;
         [SerializeField] private float _targetTimeScale;
+        [SerializeField] private bool _enabledCustomTimeScale;
 
         private void Update()
         {
             Application.targetFrameRate = _targetFrameRate;
-            Time.timeScale = _targetTimeScale;
+
+            if (_enabledCustomTimeScale)
+                Time.timeScale = _targetTimeScale;
         }
     }
 }

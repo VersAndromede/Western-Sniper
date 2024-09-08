@@ -21,5 +21,10 @@ namespace Scripts.UI
         {
             _animator.Show();
         }
+
+        public void Exit()
+        {
+            _animator.Exit();
+        }
     }
 }

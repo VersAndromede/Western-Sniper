@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace Scripts.CameraSystem.PointerObserverSystem
 {
-    public class PointerObserverWrapper : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler
+    public class PointerObserverWrapper : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
         [SerializeField] private PointerObserver _pointerObserver;
 
@@ -17,9 +17,9 @@ namespace Scripts.CameraSystem.PointerObserverSystem
             _pointerObserver.OnDrag(eventData);
         }
 
-        public void OnEndDrag(PointerEventData eventData)
+        public void OnPointerUp(PointerEventData eventData)
         {
-            _pointerObserver.OnEndDrag(eventData);
+            _pointerObserver.OnPointerUp(eventData);
         }
     }
 }

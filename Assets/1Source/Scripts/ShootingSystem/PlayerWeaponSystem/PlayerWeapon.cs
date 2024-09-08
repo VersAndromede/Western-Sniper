@@ -1,8 +1,8 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using Scripts.GameConfigSystem;
 using Scripts.ShootingSystem.AmmunitionSystem;
 using Scripts.ShootingSystem.ShotHandlerSystem;
-using System;
 using UnityEngine;
 
 namespace Scripts.ShootingSystem.PlayerWeaponSystem
@@ -16,6 +16,12 @@ namespace Scripts.ShootingSystem.PlayerWeaponSystem
         public bool IsEmpty => _ammunition.IsEmpty;
 
         public event Action<Vector3> ShotFired;
+
+        public event Action BulletInserted;
+
+        public event Action Reloading;
+
+        public event Action Reloaded;
 
         public void Init(Ammunition ammunition, GameConfig gameConfig)
         {
@@ -63,14 +69,20 @@ namespace Scripts.ShootingSystem.PlayerWeaponSystem
         {
             await UniTask.Delay(TimeSpan.FromSeconds(_config.BulletInsertionTime));
             _canShoot = true;
+            BulletInserted?.Invoke();
         }
 
         private async UniTask ReloadAll()
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(_config.PreReloadTime));
-            await UniTask.Delay(TimeSpan.FromSeconds(_config.ReloadTime));
+            float delay = _config.PreReloadTime + _config.ReloadTime;
+
+            await UniTask.Delay(TimeSpan.FromSeconds(_config.BulletInsertionTime));
+            Reloading?.Invoke();
+            await UniTask.Delay(TimeSpan.FromSeconds(delay));
+
             _ammunition.RelaodAll();
             _canShoot = true;
+            Reloaded?.Invoke();
         }
 
         private bool IsCanShoot()

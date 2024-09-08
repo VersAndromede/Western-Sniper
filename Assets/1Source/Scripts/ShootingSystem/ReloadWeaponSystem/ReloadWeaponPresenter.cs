@@ -1,29 +1,29 @@
-﻿using Scripts.ShootingSystem.AmmunitionSystem;
-using System;
+﻿using System;
+using Scripts.ShootingSystem.PlayerWeaponSystem;
 using VContainer;
 
 namespace Scripts.ShootingSystem.ReloadWeaponSystem
 {
     public class ReloadWeaponPresenter : IDisposable
     {
-        private readonly Ammunition _ammunition;
+        private readonly PlayerWeapon _weapon;
         private readonly ReloadWeaponView _reloadWeaponView;
 
         [Inject]
-        public ReloadWeaponPresenter(Ammunition ammunition, ReloadWeaponView reloadWeaponView)
+        public ReloadWeaponPresenter(PlayerWeapon weapon, ReloadWeaponView reloadWeaponView)
         {
-            _ammunition = ammunition;
+            _weapon = weapon;
             _reloadWeaponView = reloadWeaponView;
 
-            _ammunition.Over += OnOver;
+            _weapon.Reloading += OnReloading;
         }
 
         public void Dispose()
         {
-            _ammunition.Over -= OnOver;
+            _weapon.Reloading -= OnReloading;
         }
 
-        private void OnOver() 
+        private void OnReloading() 
         {
             _reloadWeaponView.AnimateSlider();
         }

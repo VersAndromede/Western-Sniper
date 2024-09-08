@@ -1,4 +1,5 @@
 ﻿using Scripts.HealthSystem;
+using System;
 using UnityEngine;
 
 namespace Scripts.EnemySystem
@@ -9,6 +10,8 @@ namespace Scripts.EnemySystem
 
         private Health _health;
         private bool _isDead;
+
+        public event Action Died;
 
         private void OnDestroy()
         {
@@ -45,6 +48,7 @@ namespace Scripts.EnemySystem
         private void OnOver()
         {
             _isDead = true;
+            Died?.Invoke();
             _effector.PlayDeth();
         }
     }

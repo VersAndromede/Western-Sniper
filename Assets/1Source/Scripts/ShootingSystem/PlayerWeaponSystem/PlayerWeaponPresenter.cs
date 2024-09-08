@@ -1,6 +1,6 @@
-﻿using Scripts.GameConfigSystem;
+﻿using System;
+using Scripts.GameConfigSystem;
 using Scripts.ShootingSystem.AmmunitionSystem;
-using System;
 using UnityEngine;
 using VContainer;
 

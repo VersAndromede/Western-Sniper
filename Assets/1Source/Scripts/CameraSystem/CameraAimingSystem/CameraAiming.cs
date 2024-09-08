@@ -1,7 +1,6 @@
+using System;
 using Cysharp.Threading.Tasks;
 using Scripts.Utilities;
-using System;
-using System.Threading;
 using UnityEngine;
 
 namespace Scripts.CameraSystem.CameraAimingSystem
@@ -28,7 +27,7 @@ namespace Scripts.CameraSystem.CameraAimingSystem
             _defaultFieldOfView = _camera.fieldOfView;
         }
 
-        public async UniTask StartAim(CancellationToken cancellationToken)
+        public async UniTask StartAim()
         {
             if (_isAimingInProgress)
                 return;
@@ -36,33 +35,33 @@ namespace Scripts.CameraSystem.CameraAimingSystem
             _isAimingInProgress = true;
             AimingInitiated?.Invoke();
 
-            SetFieldOfView(_defaultFieldOfView, _targetFieldOfView, cancellationToken);
-            await Move(_camera.transform.forward, cancellationToken);
+            SetFieldOfView(_defaultFieldOfView, _targetFieldOfView);
+            await Move(_camera.transform.forward);
 
             AimingCompleted?.Invoke();
         }
 
-        public async UniTask EndAim(CancellationToken cancellationToken)
+        public async UniTask EndAim()
         {
-            SetFieldOfView(_targetFieldOfView, _defaultFieldOfView, cancellationToken);
-            await Move(-_camera.transform.forward, cancellationToken);
+            SetFieldOfView(_targetFieldOfView, _defaultFieldOfView);
+            await Move(-_camera.transform.forward);
 
             _isAimingInProgress = false;
             CameraReturned?.Invoke();
         }
 
-        private async UniTask SetFieldOfView(float startFieldOfView, float endFieldOfView, CancellationToken cancellationToken)
+        private async UniTask SetFieldOfView(float startFieldOfView, float endFieldOfView)
         {
             await ValueEffectorUtility.Animate(
                 _duration,
                 _animationCurve,
-                cancellationToken,
+                destroyCancellationToken,
                 lerpFactor => Mathf.LerpUnclamped(startFieldOfView, endFieldOfView, lerpFactor),
                 newFieldOfView => _camera.fieldOfView = newFieldOfView,
                 () => _camera.fieldOfView = endFieldOfView);
         }
 
-        private async UniTask Move(Vector3 direction, CancellationToken cancellationToken)
+        private async UniTask Move(Vector3 direction)
         {
             Vector3 currentPosition = _camera.transform.position;
             Vector3 target = currentPosition + direction.normalized * _targetMovingForward;
@@ -70,7 +69,7 @@ namespace Scripts.CameraSystem.CameraAimingSystem
             await ValueEffectorUtility.Animate(
                 _duration,
                 _animationCurve,
-                cancellationToken,
+                destroyCancellationToken,
                 lerpFactor => Vector3.LerpUnclamped(currentPosition, target, lerpFactor),
                 newPosition => _camera.transform.position = newPosition,
                 () => _camera.transform.position = target);

@@ -1,5 +1,5 @@
-﻿using Scripts.GameConfigSystem;
-using System;
+﻿using System;
+using Scripts.GameConfigSystem;
 using VContainer;
 
 namespace Scripts.ShootingSystem.AmmunitionSystem
