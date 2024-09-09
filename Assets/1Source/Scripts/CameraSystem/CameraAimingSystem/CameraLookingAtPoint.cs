@@ -35,9 +35,11 @@ namespace Scripts.CameraSystem.CameraAimingSystem
         public void LookAtPointer(PointerEventData eventData, float speed)
         {
             Vector2 normalizedDelta = new (eventData.delta.x / Screen.width, eventData.delta.y / Screen.height);
+            float frameRateConversion = 1f / 60f;
+            float frameIndependentSpeed = speed * frameRateConversion;
 
-            _currentEulerAngles.y += normalizedDelta.x * speed;
-            _currentEulerAngles.x -= normalizedDelta.y * speed;
+            _currentEulerAngles.y += normalizedDelta.x * frameIndependentSpeed;
+            _currentEulerAngles.x -= normalizedDelta.y * frameIndependentSpeed;
 
             _currentEulerAngles.y = Mathf.Clamp(_currentEulerAngles.y, _horizontalRestriction.x, _horizontalRestriction.y);
             _currentEulerAngles.x = Mathf.Clamp(_currentEulerAngles.x, _verticalRestriction.x, _verticalRestriction.y);

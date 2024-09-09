@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7f83553141a124481479df44438df4, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  <ObservationSpeed>k__BackingField: 25
-  <AimingSpeed>k__BackingField: 10
+  <ObservationSpeed>k__BackingField: 2000
+  <AimingSpeed>k__BackingField: 800
   <TimeToExitAiming>k__BackingField: 1
   <PlayerWeaponConfig>k__BackingField:
     <Damage>k__BackingField: 35
