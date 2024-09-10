@@ -6,7 +6,6 @@ using Scripts.GameConfigSystem;
 using Scripts.ShootingSystem.AmmunitionSystem;
 using Scripts.ShootingSystem.PlayerWeaponSystem;
 using Scripts.UI;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using VContainer;
 
@@ -29,7 +28,8 @@ namespace Scripts.CameraSystem.CameraAimingSystem
 
         private void OnDestroy()
         {
-            _cancellationTokenSource.Cancel();
+            if (_cancellationTokenSource != null)
+                _cancellationTokenSource.Cancel();
 
             _screenObserver.Down -= OnScreenDown;
             _exitAimingButton.Down -= OnExitButtonDown;
@@ -56,6 +56,12 @@ namespace Scripts.CameraSystem.CameraAimingSystem
             _ammunition.Over += OnOver;
         }
 
+        public void CancelExit()
+        {
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource = null;
+        }
+
         private void OnScreenDown()
         {
             if (_isReloading == false)
@@ -76,28 +82,18 @@ namespace Scripts.CameraSystem.CameraAimingSystem
         {
             _cancellationTokenSource = new CancellationTokenSource();
 
-            GetOutAiming(_cancellationTokenSource.Token, _aimingExitTime, () =>
-            {
-                _aimingExitService.HideButton(_exitAimingButton);
-                _crosshairs.gameObject.SetActive(true);
-                _aimingExitService.Exit();
-            });
+            GetOutAiming(_cancellationTokenSource.Token, _aimingExitTime);
         }
 
         private void OnReloading()
         {
+            if (_cancellationTokenSource == null)
+                return;
+
             _cancellationTokenSource.Cancel();
             _cancellationTokenSource = new CancellationTokenSource();
 
-            GetOutAiming(_cancellationTokenSource.Token, 0, () =>
-            {
-                if (_playerWeapon.IsEmpty == false)
-                    _aimingExitService.HideButton(_aimButton);
-
-                _aimingExitService.HideButton(_exitAimingButton);
-                _aimingExitService.Exit();
-                _crosshairs.gameObject.SetActive(true);
-            });
+            GetOutAiming(_cancellationTokenSource.Token, 0);
         }
 
         private void OnReloaded()
@@ -106,10 +102,14 @@ namespace Scripts.CameraSystem.CameraAimingSystem
             _aimingExitService.ShowButton(_aimButton);
         }
 
-        private async UniTask GetOutAiming(CancellationToken token, float delay, Action endWaitCallback)
+        private async UniTask GetOutAiming(CancellationToken token, float delay)
         {
             await UniTask.Delay(TimeSpan.FromSeconds(delay), false, PlayerLoopTiming.Update, token);
-            endWaitCallback();
+
+            _aimingExitService.HideButton(_exitAimingButton);
+            _crosshairs.SetActive(true);
+            _screenObserver.ChangeType(PointerObserverType.ObserverScreen);
+            _aimingExitService.Exit();
         }
     }
 }

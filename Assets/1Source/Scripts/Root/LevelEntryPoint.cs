@@ -1,6 +1,9 @@
+using EnemyCounterSystem;
 using Scripts.CameraSystem.CameraAimingSystem;
 using Scripts.CameraSystem.PointerObserverSystem;
+using Scripts.EnemySystem;
 using Scripts.GameConfigSystem;
+using Scripts.GameOverSystem;
 using Scripts.ShootingSystem.AmmunitionSystem;
 using Scripts.ShootingSystem.PlayerWeaponSystem;
 using Scripts.ShootingSystem.ReloadWeaponSystem;
@@ -16,6 +19,7 @@ namespace Scripts.Root
     {
         [SerializeField] private GameConfig _gameConfig;
         [SerializeField] private PointerObserver _screenObserver;
+        [SerializeField] private GameObject _enemiesContainer;
 
         protected override void OnDestroy()
         {
@@ -43,6 +47,8 @@ namespace Scripts.Root
             builder.RegisterComponentInHierarchy<CameraExitAimingHandler>();
             builder.RegisterComponentInHierarchy<ExitButtonBlocker>();
 
+            ConfigureEnemyCounter(builder);
+
             builder.RegisterBuildCallback(container =>
             {
                 container.InjectGameObject(_screenObserver.gameObject);
@@ -51,5 +57,24 @@ namespace Scripts.Root
                 container.Resolve<ReloadWeaponPresenter>();
             });
         }
+
+        private void ConfigureEnemyCounter(IContainerBuilder builder)
+        {
+            Enemy[] enemies = _enemiesContainer.GetComponentsInChildren<Enemy>(true);
+            EnemyCounter enemyCounter = new ();
+            enemyCounter.Init(enemies);
+            builder.RegisterInstance(enemyCounter);
+
+            builder.RegisterComponentInHierarchy<MainEnemy>();
+            builder.Register<GameOver>(Lifetime.Singleton);
+            builder.RegisterComponentInHierarchy<GameOverView>();
+            builder.RegisterComponentInHierarchy<EnemyCounterHandler>();
+            builder.Register<GameOverPresenter>(Lifetime.Singleton);
+
+            builder.RegisterBuildCallback(container =>
+            {
+                container.Resolve<GameOverPresenter>();
+            });
+        }         
     }
 }

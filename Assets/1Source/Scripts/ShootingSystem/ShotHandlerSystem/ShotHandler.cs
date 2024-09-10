@@ -7,10 +7,11 @@ namespace Scripts.ShootingSystem.ShotHandlerSystem
 {
     public class ShotHandler : MonoBehaviour
     {
-        private readonly HitChecker _hitChecker = new HitChecker();
+        private readonly HitChecker _hitChecker = new ();
 
         [SerializeField] private PointerObserver _pointerObserver;
-        
+        [SerializeField] private LayerMask _layerMask;
+
         private PlayerWeapon _weapon;
 
         private void OnDestroy()
@@ -31,7 +32,7 @@ namespace Scripts.ShootingSystem.ShotHandlerSystem
             if (pointerObserverType != PointerObserverType.AimButton)
                 return;
 
-            if (_hitChecker.IsHitOnEnemy(out WeaponShotPoint shotPoint))
+            if (_hitChecker.IsHitOnEnemy(_layerMask, out WeaponShotPoint shotPoint))
                 _weapon.ShootEnemy(shotPoint);
             else
                 _weapon.Shoot(shotPoint.Position);
