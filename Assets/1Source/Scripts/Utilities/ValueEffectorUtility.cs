@@ -7,7 +7,7 @@ namespace Scripts.Utilities
 {
     public static class ValueEffectorUtility
     {
-        public static async UniTask Animate<T>(float duration, AnimationCurve curve, CancellationToken cancellationToken, Func<float, T> valueReceiver, Action<T> newValueCallback, Action completedCallback)
+        public static async UniTask Animate<T>(float duration, AnimationCurve curve, CancellationToken cancellationToken, Func<float, T> valueReceiver, Action<T> newValueCallback, Action completedCallback, WaitFrame waitFrame = WaitFrame.Default)
         {
             float progress = 0;
 
@@ -17,10 +17,23 @@ namespace Scripts.Utilities
                 T newValue = valueReceiver(lerpFactor);
                 newValueCallback?.Invoke(newValue);
                 progress += Time.deltaTime;
-                await UniTask.NextFrame(cancellationToken);
+                await GetWait(waitFrame, cancellationToken);
             }
 
             completedCallback?.Invoke();
+        }
+
+        private static UniTask GetWait(WaitFrame waitFrame, CancellationToken cancellationToken)
+        {
+            switch (waitFrame)
+            {
+                case WaitFrame.Default:
+                    return UniTask.NextFrame(cancellationToken);
+                case WaitFrame.Fixed:
+                    return UniTask.WaitForFixedUpdate(cancellationToken);
+                default:
+                    throw new ArgumentException();
+            }
         }
     }
 }

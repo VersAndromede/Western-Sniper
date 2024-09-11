@@ -27,9 +27,9 @@ namespace Scripts.ShootingSystem.ShotHandlerSystem
             _pointerObserver.DragEnded += OnDragEnded;
         }
 
-        private void OnDragEnded(PointerObserverType pointerObserverType)
+        private void OnDragEnded(GameStateType pointerObserverType)
         {
-            if (pointerObserverType != PointerObserverType.AimButton)
+            if (pointerObserverType != GameStateType.Aiming)
                 return;
 
             if (_hitChecker.IsHitOnEnemy(_layerMask, out WeaponShotPoint shotPoint))

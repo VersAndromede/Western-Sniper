@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 namespace Scripts.UI
 {
-    public class PressedButton : MonoBehaviour, IPointerDownHandler
+    public class PressedButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
     {
         [SerializeField] private Button _button;
 
         public event Action Down;
+
+        public event Action Click;
 
         public void Lock()
         {
@@ -24,6 +26,11 @@ namespace Scripts.UI
         public void OnPointerDown(PointerEventData eventData)
         {
             Down?.Invoke();
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            Click?.Invoke();
         }
     }
 }

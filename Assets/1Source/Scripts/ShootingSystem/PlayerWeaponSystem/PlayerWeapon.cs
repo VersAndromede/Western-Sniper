@@ -23,6 +23,8 @@ namespace Scripts.ShootingSystem.PlayerWeaponSystem
 
         public event Action Reloaded;
 
+        public event Action Headshot;
+
         public void Init(Ammunition ammunition, GameConfig gameConfig)
         {
             _ammunition = ammunition;
@@ -34,7 +36,10 @@ namespace Scripts.ShootingSystem.PlayerWeaponSystem
             Shoot(weaponShotPoint.Position, () =>
             {
                 if (weaponShotPoint.IsHeadshot)
+                {
+                    Headshot?.Invoke();
                     weaponShotPoint.Enemy.PlayHeadshot();
+                }
 
                 uint damage = GetDamage(weaponShotPoint.IsHeadshot);
                 weaponShotPoint.Enemy.TakeDamage(damage);

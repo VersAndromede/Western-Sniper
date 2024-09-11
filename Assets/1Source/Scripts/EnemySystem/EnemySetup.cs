@@ -13,7 +13,7 @@ namespace Scripts.EnemySystem
 
         private void Start()
         {
-            Health health = new Health(_maxCount);
+            Health health = new (_maxCount);
             _healthPresenter = new HealthPresenter(health, _bar);
             _enemy.Init(health);
         }

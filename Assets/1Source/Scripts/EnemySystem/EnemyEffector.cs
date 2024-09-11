@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -16,13 +18,16 @@ namespace Scripts.EnemySystem
         [SerializeField] private Vector2 _randomXHatTorque;
         [SerializeField] private float _multiplierForForceToHat;
 
-        private Rigidbody[] _rigidbodies;
+        private List<Rigidbody> _rigidbodies;
 
         public bool HatFlewOff { get; private set; }
 
         private void Start()
         {
-            _rigidbodies = GetComponentsInChildren<Rigidbody>(true);
+            _rigidbodies = GetComponentsInChildren<Rigidbody>(true).ToList();
+
+            if (TryGetComponent(out Rigidbody mainRigidbody))
+                _rigidbodies.Remove(mainRigidbody);
 
             foreach (Rigidbody rigidbody in _rigidbodies)
             {

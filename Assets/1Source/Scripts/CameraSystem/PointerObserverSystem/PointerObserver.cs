@@ -1,5 +1,5 @@
 ﻿using Scripts.CameraSystem.CameraAimingSystem;
-using Scripts.GameConfigSystem;
+using Scripts.GameStateSystem;
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,22 +9,15 @@ namespace Scripts.CameraSystem.PointerObserverSystem
 {
     public class PointerObserver : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
-        private GameConfig _gameConfig;
+        private ObservingCameraSpeedFactory _speedFactory;
         private CameraLookingAtPoint _cameraLookingAtHandler;
+        private GameState _gameState;
         private float _speed;
         private int _activePointerId = -1;
 
-        public PointerObserverType Type { get; private set; } = PointerObserverType.ObserverScreen;
-
         public event Action Down;
 
-        public event Action<PointerObserverType> DragEnded;
-
-        public void ChangeType(PointerObserverType type)
-        {
-            Type = type;
-            UpdateSpeed();
-        }
+        public event Action<GameStateType> DragEnded;
 
         public void OnPointerDown(PointerEventData eventData)
         {
@@ -50,22 +43,20 @@ namespace Scripts.CameraSystem.PointerObserverSystem
                 return;
 
             _activePointerId = -1;
-            DragEnded?.Invoke(Type);
+            DragEnded?.Invoke(_gameState.Type);
         }
 
         [Inject]
-        private void Construct(GameConfig gameConfig, CameraLookingAtPoint cameraLookingAtPoint)
+        private void Construct(ObservingCameraSpeedFactory speedFactory, CameraLookingAtPoint cameraLookingAtPoint, GameState gameState)
         {
-            _gameConfig = gameConfig;
+            _speedFactory = speedFactory;
             _cameraLookingAtHandler = cameraLookingAtPoint;
+            _gameState = gameState;
         }
 
         private void UpdateSpeed()
         {
-            if (Type == PointerObserverType.ObserverScreen)
-                _speed = _gameConfig.ObservationSpeed;
-            else if (Type == PointerObserverType.AimButton)
-                _speed = _gameConfig.AimingSpeed;
+            _speed = _speedFactory.GetSpeed(_gameState.Type);
         }
     }
 }

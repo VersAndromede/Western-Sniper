@@ -1,15 +1,16 @@
-﻿using Scripts.HealthSystem;
-using System;
+﻿using System;
+using Scripts.HealthSystem;
 using UnityEngine;
 
 namespace Scripts.EnemySystem
 {
     public class Enemy : MonoBehaviour
     {
+        [SerializeField] private EnemyAlgorithm _algorithm;
         [SerializeField] private EnemyEffector _effector;
 
         private Health _health;
-        private bool _isDead;
+        private bool _isDied;
 
         public event Action Died;
 
@@ -27,7 +28,7 @@ namespace Scripts.EnemySystem
 
         public void TakeDamage(uint damage)
         {
-            if (_isDead)
+            if (_isDied)
             {
                 _effector.PlayDeth();
                 return;
@@ -39,15 +40,22 @@ namespace Scripts.EnemySystem
                 _effector.ThrowHat();
         }
 
+        public void RunAlgorithm()
+        {
+            if (_isDied == false)
+                _algorithm?.Run();
+        }
+
         public void PlayHeadshot()
         {
-            if (_isDead == false)
+            if (_isDied == false)
                 _effector.PlayHeadshot();
         }
 
         private void OnOver()
         {
-            _isDead = true;
+            _isDied = true;
+            _algorithm?.Stop();
             Died?.Invoke();
             _effector.PlayDeth();
         }

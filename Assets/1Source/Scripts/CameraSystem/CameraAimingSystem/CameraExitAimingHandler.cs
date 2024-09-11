@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Scripts.CameraSystem.PointerObserverSystem;
 using Scripts.GameConfigSystem;
+using Scripts.GameStateSystem;
 using Scripts.ShootingSystem.AmmunitionSystem;
 using Scripts.ShootingSystem.PlayerWeaponSystem;
 using Scripts.UI;
@@ -21,6 +22,7 @@ namespace Scripts.CameraSystem.CameraAimingSystem
 
         private PlayerWeapon _playerWeapon;
         private Ammunition _ammunition;
+        private GameState _gameState;
         private float _aimingExitTime;
         private bool _isReloading;
 
@@ -41,11 +43,12 @@ namespace Scripts.CameraSystem.CameraAimingSystem
         }
 
         [Inject]
-        private void Construct(PlayerWeapon playerWeapon, Ammunition ammunition, GameConfig gameConfig)
+        private void Construct(PlayerWeapon playerWeapon, Ammunition ammunition, GameConfig gameConfig, GameState gameState)
         {
             _playerWeapon = playerWeapon;
             _ammunition = ammunition;
             _aimingExitTime = gameConfig.TimeToExitAiming;
+            _gameState = gameState;
 
             _screenObserver.Down += OnScreenDown;
             _exitAimingButton.Down += OnExitButtonDown;
@@ -54,12 +57,6 @@ namespace Scripts.CameraSystem.CameraAimingSystem
             _playerWeapon.Reloading += OnReloading;
             _playerWeapon.Reloaded += OnReloaded;
             _ammunition.Over += OnOver;
-        }
-
-        public void CancelExit()
-        {
-            _cancellationTokenSource.Cancel();
-            _cancellationTokenSource = null;
         }
 
         private void OnScreenDown()
@@ -87,9 +84,6 @@ namespace Scripts.CameraSystem.CameraAimingSystem
 
         private void OnReloading()
         {
-            if (_cancellationTokenSource == null)
-                return;
-
             _cancellationTokenSource.Cancel();
             _cancellationTokenSource = new CancellationTokenSource();
 
@@ -106,9 +100,12 @@ namespace Scripts.CameraSystem.CameraAimingSystem
         {
             await UniTask.Delay(TimeSpan.FromSeconds(delay), false, PlayerLoopTiming.Update, token);
 
+            if (_gameState.Type == GameStateType.Over)
+                return;
+
             _aimingExitService.HideButton(_exitAimingButton);
             _crosshairs.SetActive(true);
-            _screenObserver.ChangeType(PointerObserverType.ObserverScreen);
+            _gameState.ChangeType(GameStateType.Observation);
             _aimingExitService.Exit();
         }
     }

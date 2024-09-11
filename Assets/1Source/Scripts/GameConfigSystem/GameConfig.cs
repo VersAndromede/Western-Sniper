@@ -13,7 +13,11 @@ namespace Scripts.GameConfigSystem
         [field: SerializeField] public float TimeToExitAiming { get; private set; }
 
         [field: SerializeField] public PlayerWeaponConfig PlayerWeaponConfig { get; private set; }
-    }
+
+        [field: SerializeField] public uint LevelReward { get; private set; }
+
+        [field: SerializeField] public float HeadshotBonusMultiplier { get; private set; }
+}
 
     [Serializable]
     public class PlayerWeaponConfig

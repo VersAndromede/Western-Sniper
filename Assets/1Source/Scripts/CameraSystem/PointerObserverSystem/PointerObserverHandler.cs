@@ -1,19 +1,16 @@
-﻿using Scripts.UI;
+﻿using Scripts.GameStateSystem;
+using Scripts.UI;
 using UnityEngine;
+using VContainer;
 
 namespace Scripts.CameraSystem.PointerObserverSystem
 {
     public class PointerObserverHandler : MonoBehaviour
     {
-        [SerializeField] private PointerObserver _screenObserver;
         [SerializeField] private PressedButton _aimButton;
         [SerializeField] private PressedButton _exitAimingButton;
-
-        private void Start()
-        {
-            _aimButton.Down += OnAimButtonDown;
-            _exitAimingButton.Down += OnExitButtonDown;
-        }
+        
+        private GameState _gameState;
 
         private void OnDestroy()
         {
@@ -21,14 +18,23 @@ namespace Scripts.CameraSystem.PointerObserverSystem
             _exitAimingButton.Down -= OnExitButtonDown;
         }
 
+        [Inject]
+        private void Construct(GameState gameState)
+        {
+            _gameState = gameState;
+
+            _aimButton.Down += OnAimButtonDown;
+            _exitAimingButton.Down += OnExitButtonDown;
+        }
+
         private void OnAimButtonDown()
         {
-            _screenObserver.ChangeType(PointerObserverType.AimButton);
+            _gameState.ChangeType(GameStateType.Aiming);
         }
 
         private void OnExitButtonDown()
         {
-            _screenObserver.ChangeType(PointerObserverType.ObserverScreen);
+            _gameState.ChangeType(GameStateType.Observation);
         }
     }
 }

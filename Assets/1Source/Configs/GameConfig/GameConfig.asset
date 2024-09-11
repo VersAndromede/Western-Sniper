@@ -22,3 +22,5 @@ MonoBehaviour:
     <BulletInsertionTime>k__BackingField: 0.5
     <PreReloadTime>k__BackingField: 3
     <ReloadTime>k__BackingField: 0.5
+  <LevelReward>k__BackingField: 500
+  <HeadshotBonusMultiplier>k__BackingField: 0.1

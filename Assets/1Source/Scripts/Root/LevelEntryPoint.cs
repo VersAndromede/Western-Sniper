@@ -1,9 +1,11 @@
 using EnemyCounterSystem;
 using Scripts.CameraSystem.CameraAimingSystem;
 using Scripts.CameraSystem.PointerObserverSystem;
+using Scripts.CurrencySystem;
 using Scripts.EnemySystem;
 using Scripts.GameConfigSystem;
 using Scripts.GameOverSystem;
+using Scripts.GameStateSystem;
 using Scripts.ShootingSystem.AmmunitionSystem;
 using Scripts.ShootingSystem.PlayerWeaponSystem;
 using Scripts.ShootingSystem.ReloadWeaponSystem;
@@ -20,6 +22,7 @@ namespace Scripts.Root
         [SerializeField] private GameConfig _gameConfig;
         [SerializeField] private PointerObserver _screenObserver;
         [SerializeField] private GameObject _enemiesContainer;
+        [SerializeField] private EnemyStateHandler _enemyStateHandler;
 
         protected override void OnDestroy()
         {
@@ -35,11 +38,20 @@ namespace Scripts.Root
             builder.RegisterComponentInHierarchy<ReloadWeaponView>();
             builder.Register<ReloadWeaponPresenter>(Lifetime.Singleton);
             builder.Register<AmmunitionPresenter>(Lifetime.Singleton);
-
+            
             builder.Register<PlayerWeapon>(Lifetime.Singleton);
+            builder.Register<GameState>(Lifetime.Singleton);
+            builder.Register<ObservingCameraSpeedFactory>(Lifetime.Singleton);
             builder.RegisterComponentInHierarchy<PlayerWeaponView>();
             builder.Register<PlayerWeaponPresenter>(Lifetime.Singleton);
 
+            builder.Register<Currency>(Lifetime.Singleton);
+            builder.Register<AmountCurrencyPerLevel>(Lifetime.Singleton);
+            builder.RegisterComponentInHierarchy<AmountCurrencyPerLevelView>();
+            builder.RegisterComponentInHierarchy<CurrencyAccrualView>();
+            builder.RegisterComponentInHierarchy<ClaimButtonHandler>();
+
+            builder.RegisterComponentInHierarchy<PointerObserverHandler>();
             builder.RegisterComponentInHierarchy<CameraLookingAtPoint>();
             builder.RegisterComponentInHierarchy<ShotHandler>();
             builder.RegisterComponentInHierarchy<CameraAimingHandler>();
@@ -63,6 +75,7 @@ namespace Scripts.Root
             Enemy[] enemies = _enemiesContainer.GetComponentsInChildren<Enemy>(true);
             EnemyCounter enemyCounter = new ();
             enemyCounter.Init(enemies);
+
             builder.RegisterInstance(enemyCounter);
 
             builder.RegisterComponentInHierarchy<MainEnemy>();
@@ -74,6 +87,9 @@ namespace Scripts.Root
             builder.RegisterBuildCallback(container =>
             {
                 container.Resolve<GameOverPresenter>();
+
+                PlayerWeapon playerWeapon = container.Resolve<PlayerWeapon>();
+                _enemyStateHandler.Init(enemies, playerWeapon);
             });
         }         
     }

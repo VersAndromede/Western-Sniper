@@ -10,7 +10,6 @@ namespace Scripts.GameOverSystem
         [SerializeField] private float _duration;
         [SerializeField] private float _delay;
         [SerializeField] private AimingExitService _aimingExitService;
-        [SerializeField] private CameraExitAimingHandler _cameraExitAimingHandler;
 
         public void Enable()
         {
@@ -18,7 +17,6 @@ namespace Scripts.GameOverSystem
 
             _container.gameObject.SetActive(true);
             _container.DOFade(TargetFade, _duration).SetDelay(_delay);
-            _cameraExitAimingHandler.CancelExit();
             _aimingExitService.Exit();
         }
     }

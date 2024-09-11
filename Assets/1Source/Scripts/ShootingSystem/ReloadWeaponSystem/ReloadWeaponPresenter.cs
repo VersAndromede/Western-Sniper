@@ -1,4 +1,6 @@
 ﻿using System;
+using Scripts.CameraSystem.PointerObserverSystem;
+using Scripts.GameStateSystem;
 using Scripts.ShootingSystem.PlayerWeaponSystem;
 using VContainer;
 
@@ -8,12 +10,14 @@ namespace Scripts.ShootingSystem.ReloadWeaponSystem
     {
         private readonly PlayerWeapon _weapon;
         private readonly ReloadWeaponView _reloadWeaponView;
+        private readonly GameState _gameState;
 
         [Inject]
-        public ReloadWeaponPresenter(PlayerWeapon weapon, ReloadWeaponView reloadWeaponView)
+        public ReloadWeaponPresenter(PlayerWeapon weapon, ReloadWeaponView reloadWeaponView, GameState gameState)
         {
             _weapon = weapon;
             _reloadWeaponView = reloadWeaponView;
+            _gameState = gameState;
 
             _weapon.Reloading += OnReloading;
         }
@@ -23,9 +27,10 @@ namespace Scripts.ShootingSystem.ReloadWeaponSystem
             _weapon.Reloading -= OnReloading;
         }
 
-        private void OnReloading() 
+        private void OnReloading()
         {
-            _reloadWeaponView.AnimateSlider();
+            if (_gameState.Type != GameStateType.Over)
+                _reloadWeaponView.AnimateSlider();
         }
     }
 }
