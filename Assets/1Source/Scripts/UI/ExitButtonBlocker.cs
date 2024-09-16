@@ -38,7 +38,7 @@ namespace Scripts.UI
 
         private void OnInsertedBullet()
         {
-            if (_gameState.Type == GameStateType.Over)
+            if (_gameState.IsGameOver)
                 return;
 
             _exitAimingButton.gameObject.SetActive(true);
@@ -46,7 +46,7 @@ namespace Scripts.UI
 
         private void OnReloading()
         {
-            if (_gameState.Type == GameStateType.Over)
+            if (_gameState.IsGameOver)
                 return;
 
             _exitAimingButton.Lock();

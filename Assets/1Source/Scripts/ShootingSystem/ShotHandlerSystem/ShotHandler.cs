@@ -1,4 +1,5 @@
 using Scripts.CameraSystem.PointerObserverSystem;
+using Scripts.GameStateSystem;
 using Scripts.ShootingSystem.PlayerWeaponSystem;
 using UnityEngine;
 using VContainer;
@@ -27,9 +28,9 @@ namespace Scripts.ShootingSystem.ShotHandlerSystem
             _pointerObserver.DragEnded += OnDragEnded;
         }
 
-        private void OnDragEnded(GameStateType pointerObserverType)
+        private void OnDragEnded(GameState gameState)
         {
-            if (pointerObserverType != GameStateType.Aiming)
+            if (gameState.Type == GameStateType.Observation || gameState.IsGameOver)
                 return;
 
             if (_hitChecker.IsHitOnEnemy(_layerMask, out WeaponShotPoint shotPoint))

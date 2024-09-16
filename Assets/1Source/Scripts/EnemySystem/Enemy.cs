@@ -11,6 +11,7 @@ namespace Scripts.EnemySystem
 
         private Health _health;
         private bool _isDied;
+        private bool _isInvulnerable;
 
         public event Action Died;
 
@@ -28,6 +29,9 @@ namespace Scripts.EnemySystem
 
         public void TakeDamage(uint damage)
         {
+            if (_isInvulnerable)
+                return;
+
             if (_isDied)
             {
                 _effector.PlayDeth();
@@ -46,10 +50,17 @@ namespace Scripts.EnemySystem
                 _algorithm?.Run();
         }
 
+        public void MakeInvulnerable()
+        {
+            _isInvulnerable = true;
+        }
+
         public void PlayHeadshot()
         {
-            if (_isDied == false)
-                _effector.PlayHeadshot();
+            if (_isInvulnerable || _isDied)
+                return;
+
+            _effector.PlayHeadshot();
         }
 
         private void OnOver()

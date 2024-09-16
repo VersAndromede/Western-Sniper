@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &294119556529407495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2665747515803010457}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2665747515803010457
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294119556529407495}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.2153402, y: -0.53464127, z: 0.30530652, w: 0.7580074}
+  m_LocalPosition: {x: 2.764, y: 2.23, z: -2.5499992}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7266537409331610438}
+  m_LocalEulerAnglesHint: {x: 40.762, y: -63.702, z: 17.883}
 --- !u!1 &1346143716326004741
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,6 +40,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7266537409331610438}
+  - component: {fileID: 7094912426468006125}
+  - component: {fileID: 62683636787184133}
   m_Layer: 0
   m_Name: Enemy Target Point Effect
   m_TagString: Untagged
@@ -33,8 +66,45 @@ Transform:
   - {fileID: 1619254833687442358}
   - {fileID: 5493913943377111141}
   - {fileID: 3920749771399701969}
+  - {fileID: 2665747515803010457}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &7094912426468006125
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346143716326004741}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.5, z: 0}
+--- !u!114 &62683636787184133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346143716326004741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 716342803d570064897bec1231adfb18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetPointForCamera: {fileID: 2665747515803010457}
 --- !u!1 &2395096527892400196
 GameObject:
   m_ObjectHideFlags: 0

@@ -98,9 +98,9 @@ namespace Scripts.CameraSystem.CameraAimingSystem
 
         private async UniTask GetOutAiming(CancellationToken token, float delay)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(delay), false, PlayerLoopTiming.Update, token);
+            await UniTask.WaitForSeconds(delay, cancellationToken: token);
 
-            if (_gameState.Type == GameStateType.Over)
+            if (_gameState.IsGameOver)
                 return;
 
             _aimingExitService.HideButton(_exitAimingButton);

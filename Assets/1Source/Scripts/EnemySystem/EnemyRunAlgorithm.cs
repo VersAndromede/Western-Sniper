@@ -10,14 +10,14 @@ namespace Scripts.EnemySystem
         private const string IdleTrigger = "Idle";
         private const string RunTrigger = "Run";
 
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
+
         [SerializeField] private Animator _animator;
         [SerializeField] private Waypoint[] _waypoints;
         [SerializeField] private Rigidbody _rigidbody;
-        [SerializeField] private float _moveDuration;
-        [SerializeField] private float _rotateDuration;
+        [SerializeField] private float _moveSpeed;
+        [SerializeField] private float _rotateSpeed;
         [SerializeField] private AnimationCurve _animationCurve;
-
-        private readonly CancellationTokenSource _cancellationTokenSource = new();
 
         private void OnDestroy()
         {
@@ -33,7 +33,7 @@ namespace Scripts.EnemySystem
                 Rotate(waypoint);
                 await Move(waypoint);
             }
-            
+
             _animator.SetTrigger(IdleTrigger);
         }
 
@@ -46,34 +46,38 @@ namespace Scripts.EnemySystem
         private async UniTask Move(Waypoint waypoint)
         {
             Vector3 currentPosition = _rigidbody.position;
+            float distance = Vector3.Distance(currentPosition, waypoint.Position);
+            float moveDuration = distance / _moveSpeed;
 
             await ValueEffectorUtility.Animate(
-                _moveDuration,
+                moveDuration,
                 _animationCurve,
                 _cancellationTokenSource.Token,
                 lerpFactor => Vector3.LerpUnclamped(currentPosition, waypoint.Position, lerpFactor),
                 newPosition => _rigidbody.MovePosition(newPosition),
-                () => _rigidbody.position = waypoint.Position,
-                WaitFrame.Fixed);
+                waitFrame: WaitFrame.Fixed);
         }
 
-        private async UniTask Rotate(Waypoint waypoint)
+        private void Rotate(Waypoint waypoint)
         {
             const float CorrectiveTurn = 180;
 
             Vector3 directionToWaypoint = (waypoint.Position - _rigidbody.position).normalized;
+            Quaternion currentRotation = _rigidbody.rotation;
             Quaternion targetRotation = Quaternion.LookRotation(directionToWaypoint);
 
             targetRotation *= Quaternion.Euler(0, CorrectiveTurn, 0);
 
-            await ValueEffectorUtility.Animate(
-                _rotateDuration,
+            float angle = Quaternion.Angle(currentRotation, targetRotation);
+            float rotateDuration = angle / _rotateSpeed;
+
+            ValueEffectorUtility.Animate(
+                rotateDuration,
                 _animationCurve,
                 _cancellationTokenSource.Token,
-                lerpFactor => Quaternion.Slerp(_rigidbody.rotation, targetRotation, lerpFactor),
+                lerpFactor => Quaternion.Slerp(currentRotation, targetRotation, lerpFactor),
                 newRotation => _rigidbody.MoveRotation(newRotation),
-                () => _rigidbody.rotation = targetRotation,
-                WaitFrame.Fixed);
+                waitFrame: WaitFrame.Fixed);
         }
     }
 }

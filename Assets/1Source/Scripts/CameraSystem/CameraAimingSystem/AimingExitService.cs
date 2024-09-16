@@ -1,4 +1,5 @@
-﻿using Scripts.UI;
+﻿using Cysharp.Threading.Tasks;
+using Scripts.UI;
 using UnityEngine;
 
 namespace Scripts.CameraSystem.CameraAimingSystem
@@ -8,10 +9,10 @@ namespace Scripts.CameraSystem.CameraAimingSystem
         [SerializeField] private CameraAiming _cameraAiming;
         [SerializeField] private AnimatedUI _aimingScreen;
 
-        public void Exit()
+        public async UniTask Exit()
         {
             _aimingScreen.Hide();
-            _cameraAiming.EndAim();
+            await _cameraAiming.EndAim();
         }
 
         public void HideButton(AnimatedButton animatedButton)

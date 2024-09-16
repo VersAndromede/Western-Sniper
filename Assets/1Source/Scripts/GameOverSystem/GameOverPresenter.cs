@@ -1,5 +1,5 @@
-﻿using Scripts.CurrencySystem;
-using System;
+﻿using System;
+using Scripts.CurrencySystem;
 using VContainer;
 
 namespace Scripts.GameOverSystem
@@ -7,15 +7,17 @@ namespace Scripts.GameOverSystem
     public class GameOverPresenter : IDisposable
     {
         private readonly GameOver _gameOver;
-        private readonly GameOverView _view;
+        private readonly VictoryScreenView _victoryView;
+        private readonly FailedScreenView _failedView;
         private readonly AmountCurrencyPerLevel _amountCurrencyPerLevel;
         private readonly AmountCurrencyPerLevelView _amountCurrencyPerLevelView;
 
         [Inject]
-        public GameOverPresenter(GameOver gameOver, GameOverView view, AmountCurrencyPerLevel amountCurrencyPerLevel, AmountCurrencyPerLevelView amountCurrencyPerLevelView)
+        public GameOverPresenter(GameOver gameOver, VictoryScreenView victoryView, FailedScreenView failedView, AmountCurrencyPerLevel amountCurrencyPerLevel, AmountCurrencyPerLevelView amountCurrencyPerLevelView)
         {
             _gameOver = gameOver;
-            _view = view;
+            _victoryView = victoryView;
+            _failedView = failedView;
             _amountCurrencyPerLevel = amountCurrencyPerLevel;
             _amountCurrencyPerLevelView = amountCurrencyPerLevelView;
 
@@ -27,10 +29,30 @@ namespace Scripts.GameOverSystem
             _gameOver.Invoked -= OnInvoked;
         }
 
-        public void OnInvoked()
+        private void EnableVictory()
         {
             _amountCurrencyPerLevelView.UpdateView(_amountCurrencyPerLevel.LevelReward, _amountCurrencyPerLevel.HeadshotBonus);
-            _view.Enable();
+            _victoryView.Enable();
+        }
+
+        private void EnableFaile()
+        {
+            _failedView.Enable();
+        }
+
+        private void OnInvoked(GameOverType gameOverType)
+        {
+            switch (gameOverType)
+            {
+                case GameOverType.Completed:
+                    EnableVictory();
+                    break;
+                case GameOverType.Failed:
+                    EnableFaile();
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
         }
     }
 }

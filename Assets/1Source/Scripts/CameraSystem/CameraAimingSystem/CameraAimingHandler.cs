@@ -1,5 +1,6 @@
 ﻿using Scripts.ShootingSystem.PlayerWeaponSystem;
 using Scripts.UI;
+using TMPro;
 using UnityEngine;
 using VContainer;
 

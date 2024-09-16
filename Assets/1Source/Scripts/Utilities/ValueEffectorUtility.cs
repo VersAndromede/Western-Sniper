@@ -7,7 +7,7 @@ namespace Scripts.Utilities
 {
     public static class ValueEffectorUtility
     {
-        public static async UniTask Animate<T>(float duration, AnimationCurve curve, CancellationToken cancellationToken, Func<float, T> valueReceiver, Action<T> newValueCallback, Action completedCallback, WaitFrame waitFrame = WaitFrame.Default)
+        public static async UniTask Animate<T>(float duration, AnimationCurve curve, CancellationToken cancellationToken, Func<float, T> valueReceiver, Action<T> newValueCallback, Action completedCallback = null, WaitFrame waitFrame = WaitFrame.Default)
         {
             float progress = 0;
 

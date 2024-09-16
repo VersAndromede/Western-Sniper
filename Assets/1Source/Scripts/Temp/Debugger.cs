@@ -8,6 +8,7 @@ namespace Scripts.Temp
         [SerializeField] private int _targetFrameRate;
         [SerializeField] private float _targetTimeScale;
         [SerializeField] private bool _enabledCustomTimeScale;
+        [SerializeField] private bool _enabledDebugger;
         [SerializeField] private TMP_Text _log;
 
         private void Start()
@@ -30,7 +31,7 @@ namespace Scripts.Temp
 
         private void OnLogMessageReceived(string condition, string stackTrace, LogType type)
         {
-            if (_log != null)
+            if (_enabledDebugger && _log != null)
                 _log.text = $"{type}: {condition}\n";
         }
     }

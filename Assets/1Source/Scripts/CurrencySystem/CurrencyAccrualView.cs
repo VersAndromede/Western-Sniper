@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 namespace Scripts.CurrencySystem
@@ -32,7 +33,7 @@ namespace Scripts.CurrencySystem
                 CurrencyIcon icon = Instantiate(_prefab, _container);
                 icon.transform.position = _startPoint.position;
                 icon.transform.DOMove(_endPoint.position, _accrualDuration).SetEase(_animationCurve);
-                await UniTask.Delay(TimeSpan.FromSeconds(_delayBetweenCreation), false, PlayerLoopTiming.Update, destroyCancellationToken);
+                await UniTask.WaitForSeconds(_delayBetweenCreation, cancellationToken: destroyCancellationToken);
             }
         }
     }

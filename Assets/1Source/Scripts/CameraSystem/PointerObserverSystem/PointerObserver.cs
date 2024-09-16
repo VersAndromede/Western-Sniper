@@ -17,7 +17,7 @@ namespace Scripts.CameraSystem.PointerObserverSystem
 
         public event Action Down;
 
-        public event Action<GameStateType> DragEnded;
+        public event Action<GameState> DragEnded;
 
         public void OnPointerDown(PointerEventData eventData)
         {
@@ -43,7 +43,7 @@ namespace Scripts.CameraSystem.PointerObserverSystem
                 return;
 
             _activePointerId = -1;
-            DragEnded?.Invoke(_gameState.Type);
+            DragEnded?.Invoke(_gameState);
         }
 
         [Inject]

@@ -1,5 +1,4 @@
 ﻿using System;
-using Scripts.CameraSystem.PointerObserverSystem;
 using Scripts.GameStateSystem;
 using Scripts.ShootingSystem.PlayerWeaponSystem;
 using VContainer;
@@ -29,7 +28,7 @@ namespace Scripts.ShootingSystem.ReloadWeaponSystem
 
         private void OnReloading()
         {
-            if (_gameState.Type != GameStateType.Over)
+            if (_gameState.IsGameOver == false)
                 _reloadWeaponView.AnimateSlider();
         }
     }

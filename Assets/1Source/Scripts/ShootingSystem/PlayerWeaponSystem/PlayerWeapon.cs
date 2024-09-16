@@ -81,9 +81,9 @@ namespace Scripts.ShootingSystem.PlayerWeaponSystem
         {
             float delay = _config.PreReloadTime + _config.ReloadTime;
 
-            await UniTask.Delay(TimeSpan.FromSeconds(_config.BulletInsertionTime));
+            await UniTask.WaitForSeconds(_config.BulletInsertionTime);
             Reloading?.Invoke();
-            await UniTask.Delay(TimeSpan.FromSeconds(delay));
+            await UniTask.WaitForSeconds(delay);
 
             _ammunition.RelaodAll();
             _canShoot = true;

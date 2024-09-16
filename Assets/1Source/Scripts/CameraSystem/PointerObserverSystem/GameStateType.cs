@@ -4,6 +4,5 @@
     {
         Observation,
         Aiming,
-        Over,
     }
 }

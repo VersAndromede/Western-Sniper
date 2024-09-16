@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scripts.GameOverSystem
 {
-    public class GameOverView : MonoBehaviour
+    public class VictoryScreenView : MonoBehaviour
     {
         [SerializeField] private CanvasGroup _container;
         [SerializeField] private float _duration;

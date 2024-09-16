@@ -15,6 +15,7 @@ namespace Scripts.CameraSystem.CameraAimingSystem
         private Quaternion _currentRotation;
         private Quaternion _targetRotation;
         private Vector3 _currentEulerAngles;
+        private bool _isEnabled = true;
 
         private void Start()
         {
@@ -25,6 +26,9 @@ namespace Scripts.CameraSystem.CameraAimingSystem
 
         private void LateUpdate()
         {
+            if (_isEnabled == false)
+                return;
+
             float lerpFactor = _animationCurve.Evaluate(_smoothTime * Time.deltaTime);
             _currentRotation = Quaternion.Slerp(_currentRotation, _targetRotation, lerpFactor);
             float distance = Vector3.Distance(_camera.position, _focusPoint.position);
@@ -45,6 +49,11 @@ namespace Scripts.CameraSystem.CameraAimingSystem
             _currentEulerAngles.x = Mathf.Clamp(_currentEulerAngles.x, _verticalRestriction.x, _verticalRestriction.y);
 
             _targetRotation = Quaternion.Euler(_currentEulerAngles);
+        }
+
+        public void Disable()
+        {
+            _isEnabled = false;
         }
     }
 }
