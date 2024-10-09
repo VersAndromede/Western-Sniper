@@ -10,7 +10,7 @@ namespace Scripts.EnemySystem
     {
         private const string HeadshotTrigger = "Headshot";
 
-        [SerializeField] private Animator _enemyAnimator;
+        [SerializeField] private DieEffect _dieEffect;
         [SerializeField] private Animator _headshotTextAnimator;
         [SerializeField] private Vector2 _randomXForce;
         [SerializeField] private Vector2 _randomYForce;
@@ -22,9 +22,12 @@ namespace Scripts.EnemySystem
 
         public bool HatFlewOff { get; private set; }
 
+        public Rigidbody Body { get; private set; }
+
         private void Start()
         {
             _rigidbodies = GetComponentsInChildren<Rigidbody>(true).ToList();
+            Body = FindEnemyPart(EnemyPartType.Body);
 
             if (TryGetComponent(out Rigidbody mainRigidbody))
                 _rigidbodies.Remove(mainRigidbody);
@@ -40,13 +43,7 @@ namespace Scripts.EnemySystem
 
         public void PlayDeth()
         {
-            _enemyAnimator.enabled = false;
-
-            foreach (Rigidbody rigidbody in _rigidbodies)
-                rigidbody.isKinematic = false;
-
-            Rigidbody body = FindEnemyPart(EnemyPartType.Body);
-            AddForce(body);
+            _dieEffect.Play();
         }
 
         public void ThrowHat()
@@ -62,6 +59,11 @@ namespace Scripts.EnemySystem
         public void PlayHeadshot()
         {
             _headshotTextAnimator.SetTrigger(HeadshotTrigger);
+        }
+
+        public void AddBodyForce()
+        {
+            AddForce(Body);
         }
 
         private void AddForce(Rigidbody rigidbody, float multiplier = 1)

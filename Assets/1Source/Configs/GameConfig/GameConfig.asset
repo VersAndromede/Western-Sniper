@@ -22,5 +22,14 @@ MonoBehaviour:
     <BulletInsertionTime>k__BackingField: 0.5
     <PreReloadTime>k__BackingField: 3
     <ReloadTime>k__BackingField: 0.5
+  <LocationConfig>k__BackingField:
+    <LocationIcons>k__BackingField:
+    - {fileID: 21300000, guid: 6beba30968b294f5ba4a88266c50f141, type: 3}
+    - {fileID: 21300000, guid: 391584432233c4e0a864435a50a098c5, type: 3}
+    <LevelNumbers>k__BackingField: 2
   <LevelReward>k__BackingField: 500
   <HeadshotBonusMultiplier>k__BackingField: 0.1
+  <ExplosionRadius>k__BackingField: 5
+  <MaxExplosionForce>k__BackingField: 10
+  <EnemyExplosionForceMultiplier>k__BackingField: 35
+  <LoadLevelDelay>k__BackingField: 0.7

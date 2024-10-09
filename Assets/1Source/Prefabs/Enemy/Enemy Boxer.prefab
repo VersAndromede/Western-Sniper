@@ -2953,7 +2953,7 @@ PrefabInstance:
     - target: {fileID: 393043736767909861, guid: 8eb5641e62dc055479d5418c710eadb4, type: 3}
       propertyPath: _bar
       value: 
-      objectReference: {fileID: 41601450248085161}
+      objectReference: {fileID: 3271770856943744635}
     - target: {fileID: 393043736767909861, guid: 8eb5641e62dc055479d5418c710eadb4, type: 3}
       propertyPath: _enemy
       value: 
@@ -3014,6 +3014,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Boxer
       objectReference: {fileID: 0}
+    - target: {fileID: 8011036706808832796, guid: 8eb5641e62dc055479d5418c710eadb4, type: 3}
+      propertyPath: _enemyAnimator
+      value: 
+      objectReference: {fileID: 2158789569726190146}
     m_RemovedComponents:
     - {fileID: 967876251712497742, guid: 8eb5641e62dc055479d5418c710eadb4, type: 3}
     m_RemovedGameObjects: []
@@ -3088,14 +3092,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fff93f3d3fa9894bb09c00abe89b154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 2158789569726190146}
   _waypoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   _rigidbody: {fileID: 922180533432173442}
-  _moveSpeed: 0
-  _rotateSpeed: 0
+  _moveSpeed: 3
+  _rotateSpeed: 200
   _animationCurve:
     serializedVersion: 2
     m_Curve:
@@ -3262,24 +3265,72 @@ PrefabInstance:
       propertyPath: m_Name
       value: Health
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8892372850523178544, guid: 8027bd33bb91d1c42aedd719a6dccd93, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5395154080008488024, guid: 8027bd33bb91d1c42aedd719a6dccd93, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3271770856943744635}
   m_SourcePrefab: {fileID: 100100000, guid: 8027bd33bb91d1c42aedd719a6dccd93, type: 3}
---- !u!114 &41601450248085161 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8892372850523178544, guid: 8027bd33bb91d1c42aedd719a6dccd93, type: 3}
+--- !u!1 &3541150641362132161 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5395154080008488024, guid: 8027bd33bb91d1c42aedd719a6dccd93, type: 3}
   m_PrefabInstance: {fileID: 8933947256435808409}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+--- !u!114 &3271770856943744635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541150641362132161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 233ea643d549f3c4da32fa57431016cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 7288af69231c82d48af4723b3ee21eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Slider: {fileID: 8741651785664421487}
+  ChangeDuration: 0.25
+  AnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _activeTime: 1.5
 --- !u!224 &3662604698350348979 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5273695523977032234, guid: 8027bd33bb91d1c42aedd719a6dccd93, type: 3}
   m_PrefabInstance: {fileID: 8933947256435808409}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8741651785664421487 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 192340085079885558, guid: 8027bd33bb91d1c42aedd719a6dccd93, type: 3}
+  m_PrefabInstance: {fileID: 8933947256435808409}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

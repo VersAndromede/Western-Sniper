@@ -1,4 +1,6 @@
 ﻿using Scripts.CameraSystem.PointerObserverSystem;
+using Scripts.GameOverSystem;
+using System;
 
 namespace Scripts.GameStateSystem
 {
@@ -8,14 +10,21 @@ namespace Scripts.GameStateSystem
 
         public bool IsGameOver { get; private set; }
 
+        public GameOverType GameOverType { get; private set; }
+
+        public event Action Changed;
+
         public void ChangeType(GameStateType type)
         {
             Type = type;
+            Changed?.Invoke();
         }
 
-        public void EndGame()
+        public void EndGame(GameOverType gameOverType)
         {
             IsGameOver = true;
+            GameOverType = gameOverType;
+            Changed?.Invoke();
         }
     }
 }

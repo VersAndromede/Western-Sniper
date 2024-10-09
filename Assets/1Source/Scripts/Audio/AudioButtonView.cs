@@ -10,12 +10,12 @@ namespace Scripts.Audio
         [SerializeField] private Sprite _enabled;
         [SerializeField] private Sprite _disabled;
 
-        private void OnEnable()
+        public void Init()
         {
             _audioButon.Changed += OnChanged;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             _audioButon.Changed -= OnChanged;
         }

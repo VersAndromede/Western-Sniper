@@ -1,16 +1,22 @@
-﻿using Scripts.HealthSystem;
+﻿using Scripts.EnemySystem;
+using System;
 using UnityEngine;
 
-namespace Scripts.EnemySystem
+namespace Scripts.HealthSystem
 {
     public class PlayerHelthHandler : MonoBehaviour
     {
+        private const uint EnemyDamage = 10;
+
         [SerializeField] private int _count;
-        [SerializeField] private HealthBar _healthBar;
+        [SerializeField] private HealthBarPlayer _healthBar;
+        [SerializeField] private PlayerDamageEffect _playerDamageEffect;
 
         private BulletCatcher[] _bulletCatchers;
         private HealthPresenter _healthPresenter;
         private Health _health;
+
+        public event Action Died;
 
         private void Start()
         {
@@ -32,7 +38,11 @@ namespace Scripts.EnemySystem
 
         private void OnCatched()
         {
-            _health.TakeDamage(10);
+            _health.TakeDamage(EnemyDamage);
+            _playerDamageEffect.Play();
+
+            if (_health.Count == 0)
+                Died?.Invoke();
         }
     }
 }

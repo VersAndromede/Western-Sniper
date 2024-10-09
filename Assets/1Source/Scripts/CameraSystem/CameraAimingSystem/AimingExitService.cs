@@ -8,10 +8,12 @@ namespace Scripts.CameraSystem.CameraAimingSystem
     {
         [SerializeField] private CameraAiming _cameraAiming;
         [SerializeField] private AnimatedUI _aimingScreen;
+        [SerializeField] private AnimatedButton _exitAimingButton;
 
         public async UniTask Exit()
         {
             _aimingScreen.Hide();
+            HideButton(_exitAimingButton);
             await _cameraAiming.EndAim();
         }
 

@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Scripts.HealthSystem
+﻿namespace Scripts.HealthSystem
 {
     public class HealthPresenter
     {

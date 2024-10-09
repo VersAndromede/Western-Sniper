@@ -4,19 +4,19 @@ using UnityEngine;
 
 namespace Scripts.EnemySystem
 {
+
     public class EnemyShootingAlgorithm : EnemyAlgorithm
     {
-        private const string ShootingTrigger = "Shooting";
-
         private readonly CancellationTokenSource _cancellationTokenSource = new();
 
-        [SerializeField] private Animator _animator;
         [SerializeField] private Bullet _bullet;
         [SerializeField] private Transform _player;
         [SerializeField] private Transform _bulletsSpawnPoint;
         [SerializeField] private float _yOffset;
         [SerializeField] private float _shootingDelay;
         [SerializeField] private float _bulletSpread;
+
+        public Vector3 PlayerPosition => _player.position;
 
         private float TargetYCenter => _player.position.y + _yOffset;
 
@@ -25,14 +25,15 @@ namespace Scripts.EnemySystem
             _cancellationTokenSource.Cancel();
         }
 
-        public override void Run()
+        public override async UniTask Run()
         {
-            _animator.SetTrigger(ShootingTrigger);
-            StartShooting();
+            Animator.SetTrigger(ShootingTrigger);
+            await StartShooting();
         }
 
         public override void Stop()
         {
+            base.Stop();
             _cancellationTokenSource.Cancel();
         }
 

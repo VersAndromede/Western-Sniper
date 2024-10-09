@@ -1,3 +1,4 @@
+using ExplodingBarrelSystem;
 using Scripts.CameraSystem.PointerObserverSystem;
 using Scripts.GameStateSystem;
 using Scripts.ShootingSystem.PlayerWeaponSystem;
@@ -34,9 +35,18 @@ namespace Scripts.ShootingSystem.ShotHandlerSystem
                 return;
 
             if (_hitChecker.IsHitOnEnemy(_layerMask, out WeaponShotPoint shotPoint))
+            {
                 _weapon.ShootEnemy(shotPoint);
-            else
+            }
+            else if (_hitChecker.IsHitOnExplodingBarrel(_layerMask, out ExplodingBarrel explodingBarrel))
+            {
+                explodingBarrel.BlowUp();
                 _weapon.Shoot(shotPoint.Position);
+            }
+            else
+            {
+                _weapon.Shoot(shotPoint.Position);
+            }
         }
     }
 }

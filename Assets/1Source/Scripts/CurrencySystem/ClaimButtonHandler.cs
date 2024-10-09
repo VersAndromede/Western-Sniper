@@ -1,4 +1,6 @@
-﻿using Scripts.UI;
+﻿using Cysharp.Threading.Tasks;
+using Scripts.LevelSystem;
+using Scripts.UI;
 using UnityEngine;
 using VContainer;
 
@@ -11,12 +13,14 @@ namespace Scripts.CurrencySystem
 
         private Currency _currency;
         private AmountCurrencyPerLevel _amountCurrencyPerLevel;
+        private LevelLoader _levelLoader;
 
         [Inject]
-        private void Construct(Currency currency, AmountCurrencyPerLevel amountCurrencyPerLevel)
+        private void Construct(Currency currency, AmountCurrencyPerLevel amountCurrencyPerLevel, LevelLoader levelLoader)
         {
             _currency = currency;
             _amountCurrencyPerLevel = amountCurrencyPerLevel;
+            _levelLoader = levelLoader;
 
             _claimButton.Click += OnClick;
         }
@@ -26,13 +30,19 @@ namespace Scripts.CurrencySystem
             _claimButton.Click -= OnClick;
         }
 
+        private async UniTask AnimateCurrencyAccrual(int startCurrency)
+        {
+            await _currencyAccrualView.Animate(startCurrency, (int)_currency.Count);
+            _levelLoader.LoadNext();
+        }
+
         private void OnClick()
         {
             uint currencyCount = _amountCurrencyPerLevel.GetAmount();
-            int startCurrency = _currency.Count;
+            int startCurrency = (int)_currency.Count;
 
             _currency.Add(currencyCount);
-            _currencyAccrualView.Animate(startCurrency, _currency.Count);
+            AnimateCurrencyAccrual(startCurrency);
         }
     }
 }

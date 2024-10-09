@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 393043736767909861}
   - component: {fileID: 967876251712497742}
   - component: {fileID: 1078189386307360980}
+  - component: {fileID: 8011036706808832796}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -107,10 +108,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b67bda93b34cee469ac1d4da7c94de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyAnimator: {fileID: 0}
+  _dieEffect: {fileID: 8011036706808832796}
   _headshotTextAnimator: {fileID: 0}
   _randomXForce: {x: -90, y: 90}
   _randomYForce: {x: 150, y: 200}
   _randomZForce: {x: 275, y: 300}
   _randomXHatTorque: {x: 30, y: 50}
   _multiplierForForceToHat: 0.02
+--- !u!114 &8011036706808832796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3538822729811157009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e0dfd68be7cbd4e80852ebd7927c05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyAnimator: {fileID: 0}

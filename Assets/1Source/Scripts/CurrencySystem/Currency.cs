@@ -5,13 +5,13 @@ namespace Scripts.CurrencySystem
     [Serializable]
     public class Currency
     {
-        public int Count { get; private set; }
+        public uint Count { get; private set; }
 
         public event Action Changed;
 
         public void Add(uint count)
         {
-            Count += (int)count;
+            Count += count;
             Changed?.Invoke();
         }
 
@@ -20,7 +20,7 @@ namespace Scripts.CurrencySystem
             if (count > Count)
                 return false;
 
-            Count -= (int)count;
+            Count -= count;
             Changed?.Invoke();
             return true;
         }

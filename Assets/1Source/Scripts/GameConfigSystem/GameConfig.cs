@@ -14,10 +14,28 @@ namespace Scripts.GameConfigSystem
 
         [field: SerializeField] public PlayerWeaponConfig PlayerWeaponConfig { get; private set; }
 
+        [field: SerializeField] public LocationConfig LocationConfig { get; private set; }
+
         [field: SerializeField] public uint LevelReward { get; private set; }
 
         [field: SerializeField] public float HeadshotBonusMultiplier { get; private set; }
-}
+
+        [field: SerializeField] public float ExplosionRadius { get; private set; }
+
+        [field: SerializeField] public float MaxExplosionForce { get; private set; }
+
+        [field: SerializeField] public float EnemyExplosionForceMultiplier { get; private set; }
+
+        [field: SerializeField] public float LoadLevelDelay { get; private set; }
+    }
+
+    [Serializable]
+    public class LocationConfig
+    {
+        [field: SerializeField] public Sprite[] LocationIcons { get; private set; }
+
+        [field: SerializeField] public uint LevelNumbers { get; private set; }
+    }
 
     [Serializable]
     public class PlayerWeaponConfig

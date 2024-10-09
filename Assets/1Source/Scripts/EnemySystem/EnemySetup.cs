@@ -7,7 +7,7 @@ namespace Scripts.EnemySystem
     {
         [SerializeField] private Enemy _enemy;
         [SerializeField] private int _maxCount;
-        [SerializeField] private HealthBar _bar;
+        [SerializeField] private HealthBarEnemy _bar;
 
         private HealthPresenter _healthPresenter;
 

@@ -16,6 +16,16 @@ namespace Scripts.Audio
 
         public event Action Changed;
 
+        public void Init(bool enabled)
+        {
+            IsEnabled = enabled;
+
+            if (IsEnabled)
+                Enable();
+            else
+                Disable();
+        }
+
         public void Switch()
         {
             if (IsEnabled)

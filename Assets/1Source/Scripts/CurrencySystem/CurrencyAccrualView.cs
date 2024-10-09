@@ -1,8 +1,7 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using System;
 using TMPro;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 namespace Scripts.CurrencySystem
@@ -19,13 +18,20 @@ namespace Scripts.CurrencySystem
         [SerializeField] private float _delayBetweenCreation;
         [SerializeField] private AnimationCurve _animationCurve;
 
+        public event Action Collected;
+
+        public void UpdateView(int currencyValue)
+        {
+            _currencyText.text = currencyValue.ToString();
+        }
+
         public async UniTask Animate(int startCurrency, int endCurrency)
         {
             float textUpdateDuration = _accrualDuration + _delayBetweenCreation * _numberCreditedElements;
 
             DOVirtual.Int(startCurrency, endCurrency, textUpdateDuration, currencyValue =>
             {
-                _currencyText.text = currencyValue.ToString();
+                UpdateView(currencyValue);
             }).SetEase(_animationCurve);
 
             for (int i = 0; i < _numberCreditedElements; i++)
@@ -35,6 +41,8 @@ namespace Scripts.CurrencySystem
                 icon.transform.DOMove(_endPoint.position, _accrualDuration).SetEase(_animationCurve);
                 await UniTask.WaitForSeconds(_delayBetweenCreation, cancellationToken: destroyCancellationToken);
             }
+
+            Collected?.Invoke();
         }
     }
 }

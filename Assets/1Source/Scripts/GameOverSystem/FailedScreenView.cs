@@ -1,18 +1,16 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
-using Scripts.CameraSystem.CameraAimingSystem;
-using DG.Tweening;
-using Cysharp.Threading.Tasks;
-using Scripts.GameStateSystem;
 using VContainer;
+using Scripts.CameraSystem.CameraAimingSystem;
+using Scripts.GameStateSystem;
 using Scripts.CameraSystem.PointerObserverSystem;
+using Scripts.CameraSystem.Animations;
 
 namespace Scripts.GameOverSystem
 {
     public class FailedScreenView : MonoBehaviour
     {
-        [SerializeField] private CanvasGroup _container;
-        [SerializeField] private float _duration;
+        [SerializeField] private FailedScreen _screen;
         [SerializeField] private float _lockDelay;
         [SerializeField] private float _animationDelay;
         [SerializeField] private GameObject[] _objectsForDeactivate;
@@ -24,10 +22,7 @@ namespace Scripts.GameOverSystem
 
         public async UniTask Enable()
         {
-            const int TargetFade = 1;
-
-            await UniTask.Delay(TimeSpan.FromSeconds(_lockDelay), false, PlayerLoopTiming.Update, destroyCancellationToken);
-            _container.gameObject.SetActive(true);
+            await UniTask.WaitForSeconds(_lockDelay, cancellationToken: destroyCancellationToken);
 
             if (_gameState.Type == GameStateType.Aiming)
                 await _aimingExitService.Exit();
@@ -36,8 +31,8 @@ namespace Scripts.GameOverSystem
 
             foreach (GameObject objectForDeactivate in _objectsForDeactivate)
                 _aimingExitService.Deactivate(objectForDeactivate);
-            
-            _container.DOFade(TargetFade, _duration);
+
+            _screen.Show(_gameState.GameOverType);
             _failureCameraAnimation.Animate();
         }
 

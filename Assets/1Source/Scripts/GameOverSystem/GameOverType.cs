@@ -3,6 +3,7 @@
     public enum GameOverType
     {
         Completed,
-        Failed,
+        TargetHidden,
+        PlayerDied,
     }
 }

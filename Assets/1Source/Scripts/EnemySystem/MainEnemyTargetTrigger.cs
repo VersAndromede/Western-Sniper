@@ -5,12 +5,6 @@ namespace Scripts.EnemySystem
 {
     public class MainEnemyTargetTrigger : MonoBehaviour
     {
-        [SerializeField] private Transform _targetPointForCamera;
-
-        public Vector3 PositionForCamera => _targetPointForCamera.position;
-
-        public Quaternion RotationForCamera => _targetPointForCamera.rotation;
-
         public event Action EnemyReached;
 
         private void OnTriggerEnter(Collider other)

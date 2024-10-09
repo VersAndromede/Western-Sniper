@@ -8,7 +8,7 @@ namespace Scripts.Root
 {
     public class Bootstrap : MonoBehaviour
     {
-        [SerializeField] private LevelEntryPoint _levelEntryPoint;
+        private MainEntryPoint _entryPoint;
 
         private IEnumerator Start()
         {
@@ -16,7 +16,9 @@ namespace Scripts.Root
             yield return YandexGamesSdk.Initialize();
             YandexGamesSdk.GameReady();
 #endif
-            _levelEntryPoint.Build();
+
+            _entryPoint = FindAnyObjectByType<MainEntryPoint>();
+            _entryPoint.Build();
             yield return null;
         }
     }
