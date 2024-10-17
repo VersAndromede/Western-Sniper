@@ -27,6 +27,8 @@ namespace Scripts.GameConfigSystem
         [field: SerializeField] public float EnemyExplosionForceMultiplier { get; private set; }
 
         [field: SerializeField] public float LoadLevelDelay { get; private set; }
+
+        [field: SerializeField] public int[] FacePrices { get; private set; }
     }
 
     [Serializable]

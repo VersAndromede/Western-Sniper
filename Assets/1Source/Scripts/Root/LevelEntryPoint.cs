@@ -13,6 +13,7 @@ using Scripts.ShootingSystem.AmmunitionSystem;
 using Scripts.ShootingSystem.PlayerWeaponSystem;
 using Scripts.ShootingSystem.ReloadWeaponSystem;
 using Scripts.ShootingSystem.ShotHandlerSystem;
+using Scripts.ShopSystem;
 using Scripts.UI;
 using UnityEngine;
 using VContainer;
@@ -69,13 +70,19 @@ namespace Scripts.Root
             builder.RegisterComponentInHierarchy<CameraExitAimingHandler>();
             builder.RegisterComponentInHierarchy<ExitButtonBlocker>();
 
+            builder.RegisterComponentInHierarchy<PlayerFace>();
+            builder.RegisterComponentInHierarchy<ShopItemButtonHandler>();
+
             builder.RegisterComponentInHierarchy<PlayerHelthHandler>();
             builder.RegisterComponentInHierarchy<PlayerDieService>();
 
             builder.RegisterComponentInHierarchy<AudioButton>();
+
             builder.Register<AudioVolumeSaver>(Lifetime.Singleton);
             builder.Register<CurrencySaver>(Lifetime.Singleton);
             builder.Register<LevelSaver>(Lifetime.Singleton);
+            builder.Register<ShopItemSaver>(Lifetime.Singleton);
+            builder.Register<PriceFaceSaver>(Lifetime.Singleton);
 
             ConfigureEnemyCounter(builder);
 
@@ -89,6 +96,8 @@ namespace Scripts.Root
                 container.Resolve<AudioVolumeSaver>();
                 container.Resolve<CurrencySaver>();
                 container.Resolve<LevelSaver>();
+                container.Resolve<ShopItemSaver>();
+                container.Resolve<PriceFaceSaver>();
             });
         }
 

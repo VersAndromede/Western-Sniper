@@ -5,7 +5,7 @@ namespace Modules.SavingsSystem
 {
     public class SaveSystem
     {
-        private const string SaveDataPrefsKey = "SaveDataPrefsKey";
+        public const string SaveDataPrefsKey = "SaveDataPrefsKey";
 
         public void Save(Action<SaveData> dataChanges)
         {

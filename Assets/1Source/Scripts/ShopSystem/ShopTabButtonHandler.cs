@@ -5,6 +5,7 @@ namespace Scripts.ShopSystem
     public class ShopTabButtonHandler : MonoBehaviour 
     {
         [SerializeField] private ShopTabButton[] _shopTabButtons;
+        [SerializeField] private ShopTabButton _enabledButtonOnStart;
 
         private void OnDestroy()
         {
@@ -14,6 +15,8 @@ namespace Scripts.ShopSystem
 
         private void Start()
         {
+            _enabledButtonOnStart.Enable();
+
             foreach (ShopTabButton shopTabButton in _shopTabButtons)
                 shopTabButton.Clicked += OnClicked;
         }

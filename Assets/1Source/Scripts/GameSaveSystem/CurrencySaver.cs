@@ -30,6 +30,8 @@ namespace Modules.SavingsSystem
 
         private void OnChanged()
         {
+            _currencyAccrualView.UpdateView((int)_currency.Count);
+
             _saveSystem.Save(data =>
             {
                 data.Currency = _currency.Count;

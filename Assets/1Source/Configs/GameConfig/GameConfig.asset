@@ -33,3 +33,4 @@ MonoBehaviour:
   <MaxExplosionForce>k__BackingField: 10
   <EnemyExplosionForceMultiplier>k__BackingField: 35
   <LoadLevelDelay>k__BackingField: 0.7
+  <FacePrices>k__BackingField: f4010000b0040000dc05000060090000a00f0000401f0000
