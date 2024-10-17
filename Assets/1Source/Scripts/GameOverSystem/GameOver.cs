@@ -9,8 +9,8 @@ namespace Scripts.GameOverSystem
 {
     public class GameOver
     {
-        private readonly EnemyCounter _enemyCounter;
         private readonly MainEnemy _mainTarget;
+        private readonly EnemyCounter _enemyCounter;
         private readonly MainEnemyTargetTrigger _mainEnemyTargetTrigger;
         private readonly PlayerHelthHandler _playerHelthHandler;
         private readonly GameState _gameState;
@@ -21,18 +21,21 @@ namespace Scripts.GameOverSystem
         public event Action<GameOverType> Invoked;
 
         [Inject]
-        public GameOver(EnemyCounter enemyCounter, MainEnemy mainEnemy, MainEnemyTargetTrigger mainEnemyTargetTrigger, PlayerHelthHandler playerHelthHandler, GameState gameState)
+        public GameOver(EnemyCounter enemyCounter, MainEnemy mainEnemy, PlayerHelthHandler playerHelthHandler, GameState gameState)
         {
+            _mainEnemyTargetTrigger = UnityEngine.Object.FindAnyObjectByType<MainEnemyTargetTrigger>();
+
             _enemyCounter = enemyCounter;
             _mainTarget = mainEnemy;
-            _mainEnemyTargetTrigger = mainEnemyTargetTrigger;
             _playerHelthHandler = playerHelthHandler;
             _gameState = gameState;
 
             _enemyCounter.AllDied += OnAllEnemyDied;
             _mainTarget.Died += OnTargetDied;
             _playerHelthHandler.Died += OnPlayerDied;
-            _mainEnemyTargetTrigger.EnemyReached += OnEnemyReached;
+
+            if (_mainEnemyTargetTrigger != null)
+                _mainEnemyTargetTrigger.EnemyReached += OnEnemyReached;
         }
 
         public void Unsubscribe()
@@ -40,7 +43,9 @@ namespace Scripts.GameOverSystem
             _enemyCounter.AllDied -= OnAllEnemyDied;
             _mainTarget.Died -= OnTargetDied;
             _playerHelthHandler.Died -= OnPlayerDied;
-            _mainEnemyTargetTrigger.EnemyReached -= OnEnemyReached;
+
+            if (_mainEnemyTargetTrigger != null)
+                _mainEnemyTargetTrigger.EnemyReached -= OnEnemyReached;
         }
 
         private void EndGame(GameOverType gameOverType)

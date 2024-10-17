@@ -109,7 +109,6 @@ namespace Scripts.Root
 
             builder.RegisterInstance(enemyCounter);
 
-            builder.RegisterComponentInHierarchy<MainEnemyTargetTrigger>();
             builder.RegisterComponentInHierarchy<MainEnemy>();
             builder.Register<GameOver>(Lifetime.Singleton);
             builder.RegisterComponentInHierarchy<VictoryScreenView>();

@@ -403,9 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fff93f3d3fa9894bb09c00abe89b154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  _waypoints: []
   _rigidbody: {fileID: 2987359757578918308}
   _moveSpeed: 3
   _rotateSpeed: 200

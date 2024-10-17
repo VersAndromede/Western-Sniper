@@ -1,4 +1,5 @@
 ﻿using Scripts.GameConfigSystem;
+using UnityEngine;
 using VContainer;
 
 namespace Scripts.CameraSystem.PointerObserverSystem
