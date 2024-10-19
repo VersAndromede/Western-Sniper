@@ -8,6 +8,12 @@ namespace EnemyCounterSystem
         [SerializeField] private EnemyCounterView _view;
         [SerializeField] private MainEnemy _mainTarget;
 
+        private void OnValidate()
+        {
+            if (_mainTarget == null)
+                _mainTarget = FindAnyObjectByType<MainEnemy>();
+        }
+
         private void Start()
         {
             _mainTarget.Died += OnDied;

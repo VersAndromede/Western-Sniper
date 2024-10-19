@@ -320,6 +320,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -9.151412
       objectReference: {fileID: 0}
+    - target: {fileID: 8738666424505704622, guid: c5dd4d140cb7c0a4babb7c9186ad92ad, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.014
+      objectReference: {fileID: 0}
+    - target: {fileID: 8738666424505704622, guid: c5dd4d140cb7c0a4babb7c9186ad92ad, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.31
+      objectReference: {fileID: 0}
     - target: {fileID: 8897470229384659261, guid: c5dd4d140cb7c0a4babb7c9186ad92ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 50.3626
@@ -389,6 +397,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b751e571788e6b4c899a0df9657c719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Mover:
+    _rigidbody: {fileID: 2987359757578918308}
+    _moveSpeed: 3
+    _rotateSpeed: 200
+    _animationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   _runAlgorithm: {fileID: 5787676768406038417}
   _shootingAlgorithm: {fileID: 8173199944145586264}
 --- !u!114 &5787676768406038417
@@ -403,34 +439,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fff93f3d3fa9894bb09c00abe89b154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Mover:
+    _rigidbody: {fileID: 2987359757578918308}
+    _moveSpeed: 3
+    _rotateSpeed: 200
+    _animationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   _waypoints: []
-  _rigidbody: {fileID: 2987359757578918308}
-  _moveSpeed: 3
-  _rotateSpeed: 200
-  _animationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!54 &2987359757578918308
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -470,6 +507,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c4db897c122bc44bd8586a18fc04e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Mover:
+    _rigidbody: {fileID: 2987359757578918308}
+    _moveSpeed: 3
+    _rotateSpeed: 200
+    _animationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   _bullet: {fileID: -4012157245582585384, guid: 39f196feff635bf42b5df6a624eb40df, type: 3}
   _player: {fileID: 0}
   _bulletsSpawnPoint: {fileID: 8491792044989618427}

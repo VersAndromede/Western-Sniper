@@ -11,7 +11,7 @@ namespace Scripts.EnemySystem
         public override async UniTask Run()
         {
             await _runAlgorithm.Run();
-            _runAlgorithm.Rotate(_shootingAlgorithm.PlayerPosition);
+            Mover.Rotate(_shootingAlgorithm.PlayerPosition, _runAlgorithm.CancellationTokenSource);
             _shootingAlgorithm.Run();
         }
 

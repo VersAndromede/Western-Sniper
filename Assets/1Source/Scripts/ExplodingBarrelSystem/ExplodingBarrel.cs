@@ -12,12 +12,6 @@ namespace ExplodingBarrelSystem
 
         private GameConfig _gameConfig;
 
-        [Inject]
-        public void Init(GameConfig gameConfig)
-        {
-            _gameConfig = gameConfig;
-        }
-
         public void BlowUp()
         {
             _effector.Animate();
@@ -40,6 +34,12 @@ namespace ExplodingBarrelSystem
 
             foreach (SubjectToExplosion subject in subjectToExplosions)
                 AddForce(subject);
+        }
+
+        [Inject]
+        private void Construct(GameConfig gameConfig)
+        {
+            _gameConfig = gameConfig;
         }
 
         private void AddForce(SubjectToExplosion subject, float multiplier = 1, Rigidbody rigidbody = null)

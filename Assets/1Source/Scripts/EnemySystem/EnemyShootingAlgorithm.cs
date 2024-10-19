@@ -10,15 +10,21 @@ namespace Scripts.EnemySystem
         private readonly CancellationTokenSource _cancellationTokenSource = new();
 
         [SerializeField] private Bullet _bullet;
-        [SerializeField] private Transform _player;
+        [SerializeField] private Player _player;
         [SerializeField] private Transform _bulletsSpawnPoint;
         [SerializeField] private float _yOffset;
         [SerializeField] private float _shootingDelay;
         [SerializeField] private float _bulletSpread;
 
-        public Vector3 PlayerPosition => _player.position;
+        public Vector3 PlayerPosition => _player.transform.position;
 
-        private float TargetYCenter => _player.position.y + _yOffset;
+        private float TargetYCenter => PlayerPosition.y + _yOffset;
+
+        private void OnValidate()
+        {
+            if (_player == null)
+                _player = FindAnyObjectByType<Player>();
+        }
 
         private void OnDestroy()
         {
@@ -28,6 +34,7 @@ namespace Scripts.EnemySystem
         public override async UniTask Run()
         {
             Animator.SetTrigger(ShootingTrigger);
+            Mover.Rotate(PlayerPosition, _cancellationTokenSource);
             await StartShooting();
         }
 
@@ -44,7 +51,7 @@ namespace Scripts.EnemySystem
                 await UniTask.WaitForSeconds(_shootingDelay, cancellationToken: _cancellationTokenSource.Token);
 
                 Bullet bullet = Instantiate(_bullet, _bulletsSpawnPoint.position, Quaternion.identity);
-                Vector3 direction = GetRandomDirectionWithinRadius(_player.position, _bulletSpread);
+                Vector3 direction = GetRandomDirectionWithinRadius(PlayerPosition, _bulletSpread);
 
                 if (direction.y < TargetYCenter)
                 {

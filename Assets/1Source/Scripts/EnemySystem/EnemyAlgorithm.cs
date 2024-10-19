@@ -9,6 +9,8 @@ namespace Scripts.EnemySystem
         protected const string RunTrigger = "Run";
         protected const string ShootingTrigger = "Shooting";
 
+        [SerializeField] protected EnemyMover Mover;
+
         protected EnemyAnimatorContainer Animator { get; private set; }
 
         private void Start()

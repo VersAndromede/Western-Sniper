@@ -3023,9 +3023,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3321884164221921642, guid: 8eb5641e62dc055479d5418c710eadb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.036
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321884164221921642, guid: 8eb5641e62dc055479d5418c710eadb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.333
+      objectReference: {fileID: 0}
     - target: {fileID: 3538822729811157009, guid: 8eb5641e62dc055479d5418c710eadb4, type: 3}
       propertyPath: m_Name
-      value: Enemy Boxer 1
+      value: Enemy Boxer Shooting
       objectReference: {fileID: 0}
     - target: {fileID: 3538822729811157009, guid: 8eb5641e62dc055479d5418c710eadb4, type: 3}
       propertyPath: m_Layer
@@ -3078,6 +3086,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1622876849075808536, guid: 8eb5641e62dc055479d5418c710eadb4, type: 3}
   m_PrefabInstance: {fileID: 5323813910162542863}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &7491817726885034085 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3321884164221921642, guid: 8eb5641e62dc055479d5418c710eadb4, type: 3}
+  m_PrefabInstance: {fileID: 5323813910162542863}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8718282845895618846 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3538822729811157009, guid: 8eb5641e62dc055479d5418c710eadb4, type: 3}
@@ -3106,37 +3119,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 8718282845895618846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fff93f3d3fa9894bb09c00abe89b154, type: 3}
+  m_Script: {fileID: 11500000, guid: 52c4db897c122bc44bd8586a18fc04e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waypoints: []
-  _rigidbody: {fileID: 322145742822324212}
-  _moveSpeed: 3
-  _rotateSpeed: 200
-  _animationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  Mover:
+    _rigidbody: {fileID: 322145742822324212}
+    _moveSpeed: 3
+    _rotateSpeed: 200
+    _animationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  _bullet: {fileID: -4012157245582585384, guid: 39f196feff635bf42b5df6a624eb40df, type: 3}
+  _player: {fileID: 0}
+  _bulletsSpawnPoint: {fileID: 7491817726885034085}
+  _yOffset: 1
+  _shootingDelay: 1.5
+  _bulletSpread: 2
 --- !u!54 &322145742822324212
 Rigidbody:
   m_ObjectHideFlags: 0
