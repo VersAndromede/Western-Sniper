@@ -1,10 +1,10 @@
-using EnemyCounterSystem;
 using Modules.SavingsSystem;
 using Scripts.Audio;
 using Scripts.CameraSystem.CameraAimingSystem;
 using Scripts.CameraSystem.PointerObserverSystem;
 using Scripts.CurrencySystem;
 using Scripts.EnemySystem;
+using Scripts.EnemySystem.EnemyCounterSystem;
 using Scripts.GameOverSystem;
 using Scripts.GameStateSystem;
 using Scripts.HealthSystem;

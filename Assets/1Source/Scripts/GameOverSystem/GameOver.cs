@@ -1,9 +1,9 @@
 using System;
-using EnemyCounterSystem;
 using Scripts.EnemySystem;
 using Scripts.GameStateSystem;
 using VContainer;
 using Scripts.HealthSystem;
+using Scripts.EnemySystem.EnemyCounterSystem;
 
 namespace Scripts.GameOverSystem
 {

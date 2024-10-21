@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ObservationSpeed>k__BackingField: 2000
   <AimingSpeed>k__BackingField: 800
-  <TimeToExitAiming>k__BackingField: 1
+  <TimeToExitAiming>k__BackingField: 0.7
   <PlayerWeaponConfig>k__BackingField:
     <Damage>k__BackingField: 35
     <HeadshotMultiplier>k__BackingField: 3

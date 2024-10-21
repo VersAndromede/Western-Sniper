@@ -1,7 +1,6 @@
-using Scripts.EnemySystem;
 using System;
 
-namespace EnemyCounterSystem
+namespace Scripts.EnemySystem.EnemyCounterSystem
 {
     public class EnemyCounter
     {

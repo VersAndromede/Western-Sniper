@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace EnemyCounterSystem
+namespace Scripts.EnemySystem.EnemyCounterSystem
 {
     public class EnemyCounterView : MonoBehaviour
     {

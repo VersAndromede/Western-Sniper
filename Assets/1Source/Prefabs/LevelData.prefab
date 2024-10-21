@@ -16101,6 +16101,10 @@ PrefabInstance:
       propertyPath: _checkmark
       value: 
       objectReference: {fileID: 6653034955933816657}
+    - target: {fileID: 3841476363764569172, guid: f707c0d954755084b84b90e635a10560, type: 3}
+      propertyPath: _invulnerabilityTime
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4196360868430789369, guid: f707c0d954755084b84b90e635a10560, type: 3}
       propertyPath: _text
       value: 
@@ -16112,11 +16116,11 @@ PrefabInstance:
     - target: {fileID: 5599581674953011545, guid: f707c0d954755084b84b90e635a10560, type: 3}
       propertyPath: _player
       value: 
-      objectReference: {fileID: 1417588349932108316}
+      objectReference: {fileID: 0}
     - target: {fileID: 6416349674388584088, guid: f707c0d954755084b84b90e635a10560, type: 3}
       propertyPath: _player
       value: 
-      objectReference: {fileID: 1417588349932108316}
+      objectReference: {fileID: 0}
     - target: {fileID: 7316806411402744939, guid: f707c0d954755084b84b90e635a10560, type: 3}
       propertyPath: _screen
       value: 

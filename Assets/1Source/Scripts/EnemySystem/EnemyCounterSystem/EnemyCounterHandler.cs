@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using VContainer;
 
-namespace EnemyCounterSystem
+namespace Scripts.EnemySystem.EnemyCounterSystem
 {
     public class EnemyCounterHandler : MonoBehaviour
     {
